@@ -35,7 +35,7 @@ public class Catalogo extends javax.swing.JPanel {
     }
     public void cargar(){
 
-        String[] datosN = new String[2] ; 
+        String[] datosN = new String[2]; 
         datos = archivo.leerDato();
         for (int i = 0; i < datos.size()-1; i++) {
             datosN = datos.get(i).split(",");

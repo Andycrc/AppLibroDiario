@@ -65,7 +65,7 @@ public class Dashboard extends javax.swing.JFrame {
         btn_home = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        btn_returns = new javax.swing.JPanel();
+        btn_asientoC = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         btn_users = new javax.swing.JPanel();
@@ -137,37 +137,37 @@ public class Dashboard extends javax.swing.JFrame {
 
         Menu.add(btn_home, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 270, 50));
 
-        btn_returns.setBackground(new java.awt.Color(18, 90, 173));
-        btn_returns.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btn_returns.setPreferredSize(new java.awt.Dimension(270, 51));
-        btn_returns.addMouseListener(new java.awt.event.MouseAdapter() {
+        btn_asientoC.setBackground(new java.awt.Color(18, 90, 173));
+        btn_asientoC.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btn_asientoC.setPreferredSize(new java.awt.Dimension(270, 51));
+        btn_asientoC.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btn_returnsMouseEntered(evt);
+                btn_asientoCMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btn_returnsMouseExited(evt);
+                btn_asientoCMouseExited(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                btn_returnsMousePressed(evt);
+                btn_asientoCMousePressed(evt);
             }
         });
-        btn_returns.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        btn_asientoC.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("...");
+        jLabel4.setText("Asiento contable");
         jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel4MouseClicked(evt);
             }
         });
-        btn_returns.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, 30));
+        btn_asientoC.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, 30));
 
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/file-chart.png"))); // NOI18N
-        btn_returns.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 30, 30));
+        btn_asientoC.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 30, 30));
 
-        Menu.add(btn_returns, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, -1, -1));
+        Menu.add(btn_asientoC, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, -1, -1));
 
         btn_users.setBackground(new java.awt.Color(18, 90, 173));
         btn_users.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -497,10 +497,17 @@ public class Dashboard extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btn_lendsMousePressed
 
-    private void btn_returnsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_returnsMousePressed
-          
+    private void btn_asientoCMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_asientoCMousePressed
+                  //inicio
+        asientoContable asic = new asientoContable();
+        asic.setSize(900, 540);
+        asic.setLocation(0, 0);
+        this.content.removeAll();
+        content.add(asic, BorderLayout.CENTER);
+        content.revalidate();
+        content.repaint();
         
-    }//GEN-LAST:event_btn_returnsMousePressed
+    }//GEN-LAST:event_btn_asientoCMousePressed
 
     private void btn_usersMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_usersMousePressed
         
@@ -539,7 +546,7 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_lendsMouseEntered
 
     private void btn_lendsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_lendsMouseExited
-        if(btn_home.getBackground().getRGB() != -15574355 || btn_returns.getBackground().getRGB() != -15574355
+        if(btn_home.getBackground().getRGB() != -15574355 || btn_asientoC.getBackground().getRGB() != -15574355
             || btn_users.getBackground().getRGB() != -15574355 || btn_books.getBackground().getRGB() != -15574355 || btn_reports.getBackground().getRGB() != -15574355)
             resetColor(btn_lends);
     }//GEN-LAST:event_btn_lendsMouseExited
@@ -550,21 +557,21 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_homeMouseEntered
 
     private void btn_homeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_homeMouseExited
-        if(btn_lends.getBackground().getRGB() != -15574355 || btn_returns.getBackground().getRGB() != -15574355
+        if(btn_lends.getBackground().getRGB() != -15574355 || btn_asientoC.getBackground().getRGB() != -15574355
             || btn_users.getBackground().getRGB() != -15574355 || btn_books.getBackground().getRGB() != -15574355 || btn_reports.getBackground().getRGB() != -15574355)
             resetColor(btn_home);
     }//GEN-LAST:event_btn_homeMouseExited
 
-    private void btn_returnsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_returnsMouseEntered
-        if(btn_returns.getBackground().getRGB() == -15574355)
-            setColor(btn_returns);
-    }//GEN-LAST:event_btn_returnsMouseEntered
+    private void btn_asientoCMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_asientoCMouseEntered
+        if(btn_asientoC.getBackground().getRGB() == -15574355)
+            setColor(btn_asientoC);
+    }//GEN-LAST:event_btn_asientoCMouseEntered
 
-    private void btn_returnsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_returnsMouseExited
+    private void btn_asientoCMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_asientoCMouseExited
         if(btn_lends.getBackground().getRGB() != -15574355 || btn_home.getBackground().getRGB() != -15574355
             || btn_users.getBackground().getRGB() != -15574355 || btn_books.getBackground().getRGB() != -15574355 || btn_reports.getBackground().getRGB() != -15574355)
-            resetColor(btn_returns);
-    }//GEN-LAST:event_btn_returnsMouseExited
+            resetColor(btn_asientoC);
+    }//GEN-LAST:event_btn_asientoCMouseExited
 
     private void btn_usersMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_usersMouseEntered
         if(btn_users.getBackground().getRGB() == -15574355)
@@ -573,7 +580,7 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void btn_usersMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_usersMouseExited
         if(btn_lends.getBackground().getRGB() != -15574355 || btn_home.getBackground().getRGB() != -15574355
-            || btn_returns.getBackground().getRGB() != -15574355 || btn_books.getBackground().getRGB() != -15574355 || btn_reports.getBackground().getRGB() != -15574355)
+            || btn_asientoC.getBackground().getRGB() != -15574355 || btn_books.getBackground().getRGB() != -15574355 || btn_reports.getBackground().getRGB() != -15574355)
             resetColor(btn_users);
     }//GEN-LAST:event_btn_usersMouseExited
 
@@ -584,7 +591,7 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void btn_booksMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_booksMouseExited
         if(btn_lends.getBackground().getRGB() != -15574355 || btn_home.getBackground().getRGB() != -15574355
-            || btn_returns.getBackground().getRGB() != -15574355 || btn_users.getBackground().getRGB() != -15574355 || btn_reports.getBackground().getRGB() != -15574355)
+            || btn_asientoC.getBackground().getRGB() != -15574355 || btn_users.getBackground().getRGB() != -15574355 || btn_reports.getBackground().getRGB() != -15574355)
             resetColor(btn_books);
     }//GEN-LAST:event_btn_booksMouseExited
 
@@ -595,7 +602,7 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void btn_reportsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_reportsMouseExited
         if(btn_lends.getBackground().getRGB() != -15574355 || btn_home.getBackground().getRGB() != -15574355
-            || btn_returns.getBackground().getRGB() != -15574355 || btn_users.getBackground().getRGB() != -15574355 || btn_books.getBackground().getRGB() != -15574355)
+            || btn_asientoC.getBackground().getRGB() != -15574355 || btn_users.getBackground().getRGB() != -15574355 || btn_books.getBackground().getRGB() != -15574355)
             resetColor(btn_reports);
     }//GEN-LAST:event_btn_reportsMouseExited
 
@@ -688,14 +695,14 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel Title;
     private javax.swing.JLabel app_name;
     private javax.swing.JLabel app_name1;
+    private javax.swing.JPanel btn_asientoC;
     private javax.swing.JPanel btn_books;
     private javax.swing.JPanel btn_home;
     private javax.swing.JPanel btn_lends;
     private javax.swing.JPanel btn_reports;
     private javax.swing.JPanel btn_reports1;
-    private javax.swing.JPanel btn_returns;
     private javax.swing.JPanel btn_users;
-    private javax.swing.JPanel content;
+    public static javax.swing.JPanel content;
     private javax.swing.JLabel exit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
