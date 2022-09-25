@@ -65,6 +65,7 @@ public class Catalogo extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Roboto Black", 2, 36)); // NOI18N
         jLabel1.setText("Catálogo de cuentas");
 
+        jTable1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
