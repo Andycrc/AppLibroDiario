@@ -37,7 +37,10 @@ public class Conector {
     public void close(){
         try {
             connect.close();
+            System.out.println("cerrado");
         } catch (SQLException ex) {
+                        System.out.println("No papa  revise");
+
         }
     }
 

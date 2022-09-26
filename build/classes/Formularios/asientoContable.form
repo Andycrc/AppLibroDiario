@@ -44,7 +44,7 @@
                                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jtfecha" min="-2" pref="45" max="-2" attributes="0"/>
+                                          <Component id="fechaA" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
@@ -58,7 +58,7 @@
                           </Group>
                           <Component id="jButton1" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="pcodigo" min="-2" pref="135" max="-2" attributes="0"/>
@@ -98,12 +98,10 @@
                           <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jtdebe" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jthaber" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="jtfecha" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jtdebe" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jthaber" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="fechaA" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -174,8 +172,6 @@
         <Property name="text" type="java.lang.String" value="Fecha"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jtfecha">
-    </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
@@ -185,16 +181,24 @@
       <SubComponents>
         <Component class="javax.swing.JTable" name="tasiento">
           <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                <LineBorder/>
+              </Border>
+            </Property>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="7" rowCount="0">
+              <Table columnCount="6" rowCount="0">
                 <Column editable="true" title="Codigo Cuenta" type="java.lang.Object"/>
                 <Column editable="true" title="nombre" type="java.lang.Object"/>
                 <Column editable="true" title="Debe" type="java.lang.Object"/>
                 <Column editable="true" title="Heber" type="java.lang.Object"/>
                 <Column editable="true" title="fecha" type="java.lang.Object"/>
-                <Column editable="true" title="editar" type="java.lang.Object"/>
                 <Column editable="true" title="eliminar" type="java.lang.Object"/>
               </Table>
+            </Property>
+            <Property name="cellSelectionEnabled" type="boolean" value="true"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Default Cursor"/>
             </Property>
           </Properties>
           <Events>
@@ -250,6 +254,8 @@
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
       </Properties>
+    </Component>
+    <Component class="com.toedter.calendar.JDateChooser" name="fechaA">
     </Component>
   </SubComponents>
 </Form>
