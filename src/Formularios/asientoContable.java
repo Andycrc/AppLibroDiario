@@ -5,6 +5,7 @@
  */
 package Formularios;
 
+import Entidades.Conector;
 import Entidades.Dcatalogo;
 import Entidades.Render;
 import static com.sun.jmx.remote.internal.IIOPHelper.connect;
@@ -14,8 +15,15 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static javax.management.remote.JMXConnectorFactory.connect;
 import javax.swing.JButton;
 import javax.swing.JTable;
@@ -33,7 +41,9 @@ public class asientoContable extends javax.swing.JPanel {
       Dcatalogo archivo = new Dcatalogo();
       ArrayList<String> datos;
       TableRowSorter trs ;
-      String vcodigo,vnombre,vdebe,vhaber,vfecha;
+      String vcodigo,vnombre,vdebe,vhaber,vfecha,vnumeroAsiento;
+      String qry="";
+      Conector cn = new Conector();
       
 
 
@@ -103,6 +113,7 @@ public class asientoContable extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         pcodigo = new javax.swing.JTextField();
         pnombre = new javax.swing.JTextField();
+        pnumeroasiento = new javax.swing.JTextField();
 
         setPreferredSize(new java.awt.Dimension(900, 564));
 
@@ -189,43 +200,42 @@ public class asientoContable extends javax.swing.JPanel {
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jToggleButton1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(pnumeroasiento, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jToggleButton1))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 529, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 529, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(nombreE)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jtdebe, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(nombreE)
-                                            .addComponent(jLabel3)
-                                            .addComponent(jtdebe, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(24, 24, 24)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(24, 24, 24)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel4)
-                                                    .addComponent(jthaber, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGap(27, 27, 27)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel5)
-                                                    .addComponent(jtfecha, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(53, 53, 53)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                    .addComponent(jtcodigoC, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                                    .addComponent(jButton1))
-                                .addGap(72, 72, 72)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel4)
+                                            .addComponent(jthaber, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(27, 27, 27)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel5)
+                                            .addComponent(jtfecha, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(pcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(pnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 26, Short.MAX_VALUE))))
+                                        .addGap(53, 53, 53)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jtcodigoC, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(jButton1))
+                        .addGap(72, 72, 72)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(pcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(pnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(0, 234, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -266,9 +276,11 @@ public class asientoContable extends javax.swing.JPanel {
                             .addComponent(pcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(jToggleButton1)
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jToggleButton1)
+                    .addComponent(pnumeroasiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(149, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -325,7 +337,68 @@ public class asientoContable extends javax.swing.JPanel {
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         // TODO add your handling code here:
+            Conector cc = new Conector();
+            Connection cn = cc.conectar();
+            String consult = "insert into asiento(debe,haber,codigo,nombrec,nasiento,fecha) values(?,?,?,?,?,?)";
+//(String) tasiento.getValueAt(i, 0)
+        try {
+            for (int i = 0; i < tasiento.getRowCount(); i++) {
+                vcodigo=(String) tasiento.getValueAt(i, 0);
+                vnombre=(String) tasiento.getValueAt(i, 1);
+                vdebe=(String) tasiento.getValueAt(i, 2);
+                vhaber=(String) tasiento.getValueAt(i, 3);
+                vfecha=(String) tasiento.getValueAt(i, 4);
+                //vnumeroAsiento = (String) tasiento.getValueAt(i, 5);
+                          
+              PreparedStatement ps = cn.prepareStatement(consult);
+            
+              if(vhaber.isEmpty()){
+                System.out.println("entro en debe");
+                ps.setDouble(1, Double.parseDouble(vdebe));
+                ps.setDouble(2, 0.0);
+                ps.setInt(3, Integer.parseInt(vcodigo));
+                ps.setString(4, vnombre);
+                ps.setInt(5, 1);
+                ps.setString(6,vfecha);
 
+                  
+              
+              }
+              else if(vdebe.isEmpty()){
+                    System.out.println("entro en haber");
+
+                    ps.setDouble(1, 0.0);
+                    ps.setDouble(2, Double.parseDouble(vhaber));
+                    ps.setInt(3, Integer.parseInt(vcodigo));
+                    ps.setString(4, vnombre);
+                    ps.setInt(5, 1);
+                    ps.setString(6,vfecha);
+
+              }
+              else{
+                  System.out.println("error no entro");
+              }
+              ps.executeUpdate();
+
+            }
+
+
+              
+
+              
+              
+              
+          
+//          	
+//
+//          st.close();
+//          c.commit();
+//          c.close();
+        } catch ( Exception e ) {
+          System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+          System.exit(0);
+        }
+        
         
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
@@ -347,6 +420,7 @@ public class asientoContable extends javax.swing.JPanel {
     private javax.swing.JTextField nombreE;
     private javax.swing.JTextField pcodigo;
     private javax.swing.JTextField pnombre;
+    private javax.swing.JTextField pnumeroasiento;
     private javax.swing.JTable tasiento;
     private javax.swing.JTable tcodigos;
     // End of variables declaration//GEN-END:variables

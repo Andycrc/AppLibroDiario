@@ -16,23 +16,30 @@ import java.sql.Statement;/**
  */
 public class Conector {
     String url = "src\\base\\conta.db";
-    Connection connect;
+    Connection connect = null;
     public String msj;
-    public void connect(){
-    try {
-     connect = DriverManager.getConnection("jdbc:sqlite:"+url);
-     if (connect!=null) {
-          msj="Conectado";
-         
-     }
-    }catch (SQLException ex) {
-                  msj="No se ha podido conectar a la base de datos\n";
+
+
+    public Connection conectar(){
+        try {
+         connect = DriverManager.getConnection("jdbc:sqlite:"+url);
+            if (connect!=null) {
+              msj="Conectado";
+             System.out.println("Si");
         }
+        }catch (SQLException ex) {
+                 msj="No se ha podido conectar a la base de datos\n";
+        }
+        return connect;
     }
+
+
     public void close(){
         try {
             connect.close();
         } catch (SQLException ex) {
         }
     }
+
+   
 }
