@@ -170,6 +170,7 @@ public class Dashboard extends javax.swing.JFrame {
         Menu.add(btn_asientoC, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, -1, -1));
 
         btn_users.setBackground(new java.awt.Color(18, 90, 173));
+        btn_users.setToolTipText("");
         btn_users.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btn_users.setPreferredSize(new java.awt.Dimension(270, 51));
         btn_users.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -187,7 +188,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("...");
+        jLabel8.setText("Mayorisaciòn");
         btn_users.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, 30));
 
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -214,7 +215,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("...");
+        jLabel10.setText("Balance");
         btn_books.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, 30));
 
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -371,7 +372,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Roboto Light", 0, 30)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Fecha: ");
+        jLabel6.setText("Empresa:");
 
         javax.swing.GroupLayout HeaderLayout = new javax.swing.GroupLayout(Header);
         Header.setLayout(HeaderLayout);
@@ -499,10 +500,10 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void btn_asientoCMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_asientoCMousePressed
                   //inicio
-        asientoContable asic = new asientoContable();
+        AsientosConatables asic = new AsientosConatables();
         asic.setSize(900, 540);
         asic.setLocation(0, 0);
-        this.content.removeAll();
+        content.removeAll();
         content.add(asic, BorderLayout.CENTER);
         content.revalidate();
         content.repaint();

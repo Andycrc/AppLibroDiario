@@ -8,8 +8,10 @@ package Formularios;
 import Entidades.Conector;
 import Entidades.Dcatalogo;
 import Entidades.Render;
+import static Formularios.Dashboard.content;
 import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
 import static com.sun.jmx.remote.internal.IIOPHelper.connect;
+import java.awt.BorderLayout;
 import java.awt.Point;
 
 import java.awt.event.KeyAdapter;
@@ -22,6 +24,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.Level;
@@ -134,7 +137,9 @@ public class asientoContable extends javax.swing.JPanel {
         pcodigo = new javax.swing.JTextField();
         pnombre = new javax.swing.JTextField();
         fechaA = new com.toedter.calendar.JDateChooser();
+        jButton2 = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(900, 564));
 
         jLabel1.setText("Nombre de empresa");
@@ -215,6 +220,13 @@ public class asientoContable extends javax.swing.JPanel {
 
         pnombre.setEditable(false);
 
+        jButton2.setText("Ver Asiento");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -222,7 +234,10 @@ public class asientoContable extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jToggleButton1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jToggleButton1)
+                        .addGap(85, 85, 85)
+                        .addComponent(jButton2))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -296,7 +311,9 @@ public class asientoContable extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
-                .addComponent(jToggleButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jToggleButton1)
+                    .addComponent(jButton2))
                 .addContainerGap(147, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -374,10 +391,13 @@ public class asientoContable extends javax.swing.JPanel {
         vnombre=this.pnombre.getText();
         vdebe=this.jtdebe.getText();
         vhaber=this.jthaber.getText();
-        int año = fechaA.getCalendar().get(Calendar.YEAR);
-        int mes = fechaA.getCalendar().get(Calendar.MARCH);
-        int dia = fechaA.getCalendar().get(Calendar.DAY_OF_MONTH);
-        vfecha =(año+"-"+mes+"-"+dia);
+//        int año = fechaA.getCalendar().get(Calendar.YEAR);
+//        int mes = fechaA.getCalendar().get(Calendar.MONTH);
+//        int dia = fechaA.getCalendar().get(Calendar.DAY_OF_MONTH);
+//        vfecha =(año+"/"+mes+"/"+dia);
+        SimpleDateFormat DateFor = new SimpleDateFormat("yyyy-MM-dd");
+        vfecha = DateFor.format(fechaA.getDate());
+        System.out.println(""+vfecha);
         
         if(vcodigo.isEmpty()||vnombre.isEmpty()||vfecha.isEmpty()){
                         JOptionPane.showMessageDialog(null, "Llene todos los datos", "Advertencia", JOptionPane.WARNING_MESSAGE);
@@ -456,7 +476,7 @@ public class asientoContable extends javax.swing.JPanel {
 
                 }
             JOptionPane.showMessageDialog(null,"Asiento Guardado con exito.","Con exito",JOptionPane.INFORMATION_MESSAGE);
-
+  
              
            }
 
@@ -468,14 +488,27 @@ public class asientoContable extends javax.swing.JPanel {
         this.limpiarjtex();
         this.eliminar();
         cc.close();
+
         
         
     }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+                     AsientosConatables  newasiento = new AsientosConatables();
+                newasiento.setSize(900, 540);
+                 newasiento.setLocation(0,0);
+                content.removeAll();
+             content.add(newasiento, BorderLayout.CENTER);
+             content.revalidate();
+             content.repaint();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser fechaA;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
