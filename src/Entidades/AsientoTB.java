@@ -11,12 +11,22 @@ package Entidades;
  */
 public class AsientoTB {
     
+    private int nAsiento;
     private int codigo;
     private String nombrec;
     private int debe;
     private int haber;
     private String fecha;
 
+    public int getnAsiento() {
+        return nAsiento;
+    }
+
+    public void setnAsiento(int nAsiento) {
+        this.nAsiento = nAsiento;
+    }
+
+    
     public int getCodigo() {
         return codigo;
     }

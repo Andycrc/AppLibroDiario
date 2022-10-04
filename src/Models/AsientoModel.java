@@ -32,10 +32,11 @@ public class AsientoModel {
            
             
         
-        String[] columnNames = {"codigo", "nombrec", "debe", "haber" , "fecha"};
+        String[] columnNames = {"nasiento","codigo", "nombrec", "debe", "haber" , "fecha"};
         model.setColumnIdentifiers(columnNames);
         // Código a ejecutar si no hay errores
         String sql = "SELECT " +
+                "nasiento, "+
                  "codigo, " +
                  "nombrec, "+
                  "debe, "+
@@ -49,13 +50,14 @@ public class AsientoModel {
             ResultSet resultados = pstm.executeQuery();
             
             
-            while(resultados.next()){               
+            while(resultados.next()){    
+                datos.setnAsiento(resultados.getInt("nasiento"));
                 datos.setCodigo(resultados.getInt("codigo"));
                 datos.setNombrec(resultados.getString("nombrec"));
                 datos.setDebe(resultados.getInt("debe"));
                 datos.setHaber(resultados.getInt("haber"));
                 datos.setFecha(resultados.getString("fecha"));
-               model.addRow(new Object[]{datos.getCodigo(), datos.getNombrec(), datos.getDebe(), datos.getHaber(), datos.getFecha()});
+               model.addRow(new Object[]{datos.getnAsiento(), datos.getCodigo(), datos.getNombrec(), datos.getDebe(), datos.getHaber(), datos.getFecha()});
             }       
             return model;
              

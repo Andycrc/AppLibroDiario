@@ -84,7 +84,7 @@ public class AsientosConatables extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Codigo", "Cuenta", "Debe", "Haber", "fecha"
+                "N° Asiento", "Codigo", "Cuenta", "Debe", "Haber", "fecha"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -119,7 +119,7 @@ public class AsientosConatables extends javax.swing.JPanel {
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(80, Short.MAX_VALUE)
+                .addContainerGap(82, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(fecha1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -137,7 +137,7 @@ public class AsientosConatables extends javax.swing.JPanel {
                         .addGap(210, 210, 210))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 752, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(67, 67, 67))))
+                        .addGap(65, 65, 65))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,9 +152,9 @@ public class AsientosConatables extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton1)
                         .addComponent(jButton2)))
-                .addGap(39, 39, 39)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addGap(38, 38, 38)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(57, 57, 57))
         );
@@ -179,7 +179,7 @@ public class AsientosConatables extends javax.swing.JPanel {
         SimpleDateFormat DateFor = new SimpleDateFormat("yyyy-MM-dd");
         String filtrof1 = DateFor.format(fecha1.getDate());
         String filtrof2 = DateFor.format(fecha2.getDate());
-        String consultafiltra="SELECT codigo,nombrec,debe,haber,fecha FROM asiento WHERE fecha BETWEEN '"+filtrof1+"' AND '"+filtrof2+"'";
+        String consultafiltra="SELECT nasiento,codigo,nombrec,debe,haber,fecha FROM asiento WHERE fecha BETWEEN '"+filtrof1+"' AND '"+filtrof2+"'";
         System.out.println(""+consultafiltra);
         ArrayList<String> lista = new ArrayList<>();
         
@@ -192,13 +192,14 @@ public class AsientosConatables extends javax.swing.JPanel {
 //                    String vid=(String)(rs.getInt("id"));
 //                    String vcodigo= (String)(rs.getInt("codigo"));
                     
-                String datos1,codigo,cuenta,debe,haber,fecha; 
+                String datos1,nasiento,codigo,cuenta,debe,haber,fecha; 
+                nasiento = Integer.toString(rs.getInt("nasiento"));
                 codigo=Integer.toString(rs.getInt("codigo"));
                 cuenta = rs.getString("nombrec");
                 debe = Integer.toString(rs.getInt("debe"));
                 haber = Integer.toString(rs.getInt("haber"));
                 fecha = rs.getString("fecha");
-                datos1 = (codigo+","+cuenta+","+debe+","+haber+","+ fecha);
+                datos1 = (nasiento+","+codigo+","+cuenta+","+debe+","+haber+","+ fecha);
                     System.out.println(""+datos1);
                     
                     
