@@ -2,8 +2,11 @@ package Formularios;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 
@@ -472,19 +475,6 @@ public class Dashboard extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_exitMousePressed
 
-    private void btn_homeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_homeMousePressed
-        
-        
-        Home hm = new Home();
-        hm.setSize(900, 540);
-        hm.setLocation(0, 0);
-        content.removeAll();
-        content.add(hm, BorderLayout.CENTER);
-        content.revalidate();
-        content.repaint();
-        
-    }//GEN-LAST:event_btn_homeMousePressed
-
     private void btn_lendsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_lendsMousePressed
 
         //inicio
@@ -500,7 +490,12 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void btn_asientoCMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_asientoCMousePressed
                   //inicio
-        AsientosConatables asic = new AsientosConatables();
+        AsientosConatables asic = null;
+        try {
+            asic = new AsientosConatables();
+        } catch (SQLException ex) {
+            Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
+        }
         asic.setSize(900, 540);
         asic.setLocation(0, 0);
         content.removeAll();
@@ -516,7 +511,7 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_usersMousePressed
 
     private void btn_booksMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_booksMousePressed
-//        resetColor(btn_prin);
+  //      resetColor(this.btn_home);
 //        resetColor(btn_lends);
 //        resetColor(btn_returns);
 //        resetColor(btn_users);
@@ -551,17 +546,6 @@ public class Dashboard extends javax.swing.JFrame {
             || btn_users.getBackground().getRGB() != -15574355 || btn_books.getBackground().getRGB() != -15574355 || btn_reports.getBackground().getRGB() != -15574355)
             resetColor(btn_lends);
     }//GEN-LAST:event_btn_lendsMouseExited
-
-    private void btn_homeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_homeMouseEntered
-        if(btn_home.getBackground().getRGB() == -15574355)
-            setColor(btn_home);
-    }//GEN-LAST:event_btn_homeMouseEntered
-
-    private void btn_homeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_homeMouseExited
-        if(btn_lends.getBackground().getRGB() != -15574355 || btn_asientoC.getBackground().getRGB() != -15574355
-            || btn_users.getBackground().getRGB() != -15574355 || btn_books.getBackground().getRGB() != -15574355 || btn_reports.getBackground().getRGB() != -15574355)
-            resetColor(btn_home);
-    }//GEN-LAST:event_btn_homeMouseExited
 
     private void btn_asientoCMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_asientoCMouseEntered
         if(btn_asientoC.getBackground().getRGB() == -15574355)
@@ -646,6 +630,28 @@ public class Dashboard extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_jLabel4MouseClicked
+
+    private void btn_homeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_homeMousePressed
+
+        Home hm = new Home();
+        hm.setSize(900, 540);
+        hm.setLocation(0, 0);
+        content.removeAll();
+        content.add(hm, BorderLayout.CENTER);
+        content.revalidate();
+        content.repaint();
+    }//GEN-LAST:event_btn_homeMousePressed
+
+    private void btn_homeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_homeMouseExited
+        if(btn_lends.getBackground().getRGB() != -15574355 || btn_asientoC.getBackground().getRGB() != -15574355
+            || btn_users.getBackground().getRGB() != -15574355 || btn_books.getBackground().getRGB() != -15574355 || btn_reports.getBackground().getRGB() != -15574355)
+        resetColor(btn_home);
+    }//GEN-LAST:event_btn_homeMouseExited
+
+    private void btn_homeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_homeMouseEntered
+        if(btn_home.getBackground().getRGB() == -15574355)
+        setColor(btn_home);
+    }//GEN-LAST:event_btn_homeMouseEntered
 
     
     void setColor(JPanel panel){

@@ -33,6 +33,9 @@ public class Conector {
         return connect;
     }
 
+    public Connection getConexion() {
+        return conectar();
+    }
 
     public void close(){
         try {
