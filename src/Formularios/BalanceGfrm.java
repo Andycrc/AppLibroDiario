@@ -24,13 +24,12 @@ import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
-import sun.awt.image.ByteBandedRaster;
 
 /**
  *
  * @author Andy
  */
-public class Mayori extends javax.swing.JPanel {
+public class BalanceGfrm extends javax.swing.JPanel {
 
     Dcatalogo archivo = new Dcatalogo();
     DefaultTableModel jtModelo;
@@ -40,7 +39,7 @@ public class Mayori extends javax.swing.JPanel {
     /**
      * Creates new form Catalogo
      */
-    public Mayori() throws SQLException {
+    public BalanceGfrm() throws SQLException {
         initComponents();
         jtModelo = (DefaultTableModel) this.jTable1.getModel(); 
         cn = new AsientoModel();
@@ -66,28 +65,22 @@ public class Mayori extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         fecha1 = new com.toedter.calendar.JDateChooser();
         fecha2 = new com.toedter.calendar.JDateChooser();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Roboto Black", 2, 36)); // NOI18N
-        jLabel1.setText("Mayorización ");
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Cuenta", "debe", "haber", "Fecha"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        jLabel1.setText("Balance general");
 
         jLabel2.setText("Hasta");
 
@@ -102,30 +95,75 @@ public class Mayori extends javax.swing.JPanel {
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButton2.setText("Imprimir");
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel3.setText("Concepto");
+
+        jLabel4.setText("Movimientos");
+
+        jLabel5.setText("Saldos");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(123, 123, 123)
+                .addComponent(jLabel3)
+                .addGap(164, 164, 164)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 186, Short.MAX_VALUE)
+                .addComponent(jLabel5)
+                .addGap(23, 23, 23))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5))
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Codigo", "Cuenta", "Debe", "Haber", "Debe", "Haber"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(82, Short.MAX_VALUE)
+                .addContainerGap(197, Short.MAX_VALUE)
+                .addComponent(fecha1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(53, 53, 53)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(fecha1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(53, 53, 53)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(52, 52, 52)
-                                .addComponent(fecha2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(55, 55, 55)
-                                .addComponent(jButton1)
-                                .addGap(28, 28, 28)
-                                .addComponent(jButton2)))
-                        .addGap(210, 210, 210))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 752, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(65, 65, 65))))
+                    .addComponent(jLabel1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(52, 52, 52)
+                        .addComponent(fecha2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(55, 55, 55)
+                        .addComponent(jButton1)
+                        .addGap(28, 28, 28)
+                        .addComponent(jButton2)))
+                .addGap(210, 210, 210))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(85, 85, 85)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 737, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -140,9 +178,11 @@ public class Mayori extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton1)
                         .addComponent(jButton2)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(128, 128, 128))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(7, 7, 7)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(129, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -156,12 +196,15 @@ public class Mayori extends javax.swing.JPanel {
         String filtrof2 = DateFor.format(fecha2.getDate());
         String consultafiltra="SELECT codigo,nombrec,fecha,debe,haber FROM asiento  WHERE fecha BETWEEN '"+filtrof1+"' AND '"+filtrof2+"' order by codigo" ;
         ArrayList<String> lista = new ArrayList<>();
-       String datos1,nasiento,cuenta,debe,haber,fecha; 
+       String datos1,nasiento,cuenta="",debe,haber,fecha; 
        int codigoA=0;
        int codigoB=0;
        int movimientoD=0;
        int movimientoH=0;
        int saldoF=0;
+       int tmovimientoD=0;
+       int tmovimientoH=0;
+       int tsaldoF=0;
        
 
        try{ 
@@ -172,82 +215,72 @@ public class Mayori extends javax.swing.JPanel {
              while(rs.next()){
                  codigoA=codigoB;
                  codigoB=rs.getInt("codigo");
-//                cuenta = rs.getString("nombrec");
-                   debe = Integer.toString(rs.getInt("debe"));
-                haber = Integer.toString(rs.getInt("haber"));
-                fecha = rs.getString("fecha");
-                if(Bandera==0){
-                    cuenta=rs.getString("nombrec");
-                    datos1 = (cuenta+","+""+","+""+","+"");
-                    lista.add(datos1);
-                   cuenta="    --";
-                   Bandera++;
+                    
+                 if(Bandera==0){
+                     Bandera++;
+                    cuenta = rs.getString("nombrec");
                     movimientoD=movimientoD+rs.getInt("debe");
                     movimientoH=movimientoH+rs.getInt("haber");
-                }else{
+                 
+                 }else{
                     if(codigoA==codigoB){
-//                        System.out.println("La cuenta"+codigoA+"es igual a la cuenta"+codigoB);
-                        cuenta="    --";
                         movimientoD=movimientoD+rs.getInt("debe");
                         movimientoH=movimientoH+rs.getInt("haber");
                     }
                     else{
-                        cuenta="    Total";
-                        debe=Integer.toString(movimientoD);
-                        haber=Integer.toString(movimientoH);
-                        datos1 = (cuenta+","+debe+","+haber+","+"");
-                        lista.add(datos1);
                         if(movimientoD>movimientoH){
+                            debe=Integer.toString(movimientoD);
+                            tmovimientoD = tmovimientoD+movimientoD;
+                            haber=Integer.toString(movimientoH);
+                            
                             saldoF=movimientoD-movimientoH;
-                            debe=Integer.toString(saldoF);
-                            datos1 = ("    Saldo"+","+debe+","+""+","+"");
+                            datos1 = (codigoB+","+cuenta+","+debe+","+haber+","+saldoF+","+"----");
                             lista.add(datos1);
 
+                        
                         }else{
-                            saldoF=movimientoH-movimientoD;
-                            haber=Integer.toString(saldoF);
-                            datos1 = ("    Saldo"+","+""+","+haber+","+"");
+                            debe=Integer.toString(movimientoD);
+                            haber=Integer.toString(movimientoH);
+                            saldoF=movimientoD-movimientoH;
+                            datos1 = (codigoB+","+cuenta+","+debe+","+haber+","+"-----"+","+saldoF);
                             lista.add(datos1);
-
+                        
                         }
-                        cuenta=rs.getString("nombrec");
-                        datos1 = (cuenta+","+""+","+""+","+"");
-                        lista.add(datos1);
-                        debe = Integer.toString(rs.getInt("debe"));
-                        haber = Integer.toString(rs.getInt("haber"));
-//                        System.out.println("La cuenta"+codigoA+"es diferente a la cuenta"+codigoB);
-                        cuenta="    --";
                         movimientoD=0;
                         movimientoH=0;
                         movimientoD=movimientoD+rs.getInt("debe");
                         movimientoH=movimientoH+rs.getInt("haber");
+                        cuenta = rs.getString("nombrec");
+
+
                         
                     }
+                 
+                 
+                 }       
+
                 
-                }
+                
                     
-               
-                datos1 = (cuenta+","+debe+","+haber+","+fecha);
-                lista.add(datos1);
+
             }
-                        cuenta="    Total";
-                        debe=Integer.toString(movimientoD);
-                        haber=Integer.toString(movimientoH);
-                        datos1 = (cuenta+","+debe+","+haber+","+"");
-                        lista.add(datos1);
-                        if(movimientoD>movimientoH){
+              if(movimientoD>movimientoH){
+                            debe=Integer.toString(movimientoD);
+                            haber=Integer.toString(movimientoH);
                             saldoF=movimientoD-movimientoH;
-                            debe=Integer.toString(saldoF);
-                            datos1 = ("    Saldo"+","+debe+","+""+","+"");
+                            datos1 = (codigoB+","+cuenta+","+debe+","+haber+","+saldoF+","+"----");
                             lista.add(datos1);
 
+                        
                         }else{
-                            saldoF=movimientoH-movimientoD;
-                            haber=Integer.toString(saldoF);
-                            datos1 = ("    Saldo"+","+""+","+haber+","+"");
+                            debe=Integer.toString(movimientoD);
+                            haber=Integer.toString(movimientoH);
+                            saldoF=movimientoD-movimientoH;
+                            datos1 = (codigoB+","+cuenta+","+debe+","+haber+","+"-----"+","+saldoF);
                             lista.add(datos1);
-
+                        
                         }
+                       
            
             for (int i = 0; i <=lista.size(); i++) {
                  datosN = lista.get(i).split(",");
@@ -284,6 +317,10 @@ public class Mayori extends javax.swing.JPanel {
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables

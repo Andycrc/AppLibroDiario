@@ -523,21 +523,18 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_usersMousePressed
 
     private void btn_booksMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_booksMousePressed
-  //      resetColor(this.btn_home);
-//        resetColor(btn_lends);
-//        resetColor(btn_returns);
-//        resetColor(btn_users);
-//        setColor(btn_books);
-//        resetColor(btn_reports);
-        // Abrir sección
-//        Books p1 = new Books();
-//        p1.setSize(750, 430);
-//        p1.setLocation(0,0);
-//        
-//        content.removeAll();
-//        content.add(p1, BorderLayout.CENTER);
-//        content.revalidate();
-//        content.repaint();
+        BalanceGfrm balance=null;
+        try {
+            balance = new BalanceGfrm();
+        } catch (SQLException ex) {
+            Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        balance.setSize(900, 540);
+        balance.setLocation(0, 0);
+        this.content.removeAll();
+        content.add(balance, BorderLayout.CENTER);
+        content.revalidate();
+        content.repaint();
     }//GEN-LAST:event_btn_booksMousePressed
 
     private void btn_reportsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_reportsMousePressed
