@@ -201,10 +201,12 @@ public class BalanceGfrm extends javax.swing.JPanel {
        int codigoB=0;
        int movimientoD=0;
        int movimientoH=0;
-       int saldoF=0;
+       int saldoFH=0;
+       int saldoFD=0;
        int tmovimientoD=0;
        int tmovimientoH=0;
-       int tsaldoF=0;
+       int tsaldoFD=0;
+       int tsaldoFH=0;
        
 
        try{ 
@@ -232,17 +234,21 @@ public class BalanceGfrm extends javax.swing.JPanel {
                             debe=Integer.toString(movimientoD);
                             tmovimientoD = tmovimientoD+movimientoD;
                             haber=Integer.toString(movimientoH);
-                            
-                            saldoF=movimientoD-movimientoH;
-                            datos1 = (codigoB+","+cuenta+","+debe+","+haber+","+saldoF+","+"----");
+                            tmovimientoH =tmovimientoH+movimientoH;
+                            saldoFD=movimientoD-movimientoH;
+                            tsaldoFD=tsaldoFD+saldoFD;
+                            datos1 = (codigoB+","+cuenta+","+debe+","+haber+","+saldoFD+","+"----");
                             lista.add(datos1);
 
                         
                         }else{
                             debe=Integer.toString(movimientoD);
+                            tmovimientoD = tmovimientoD+movimientoD;
                             haber=Integer.toString(movimientoH);
-                            saldoF=movimientoD-movimientoH;
-                            datos1 = (codigoB+","+cuenta+","+debe+","+haber+","+"-----"+","+saldoF);
+                            tmovimientoH =tmovimientoH+movimientoH;
+                            saldoFH=movimientoD-movimientoH;
+                            tsaldoFH=tsaldoFH+saldoFH;
+                            datos1 = (codigoB+","+cuenta+","+debe+","+haber+","+"-----"+","+saldoFH);
                             lista.add(datos1);
                         
                         }
@@ -264,23 +270,30 @@ public class BalanceGfrm extends javax.swing.JPanel {
                     
 
             }
-              if(movimientoD>movimientoH){
+            if(movimientoD>movimientoH){
                             debe=Integer.toString(movimientoD);
+                            tmovimientoD = tmovimientoD+movimientoD;
                             haber=Integer.toString(movimientoH);
-                            saldoF=movimientoD-movimientoH;
-                            datos1 = (codigoB+","+cuenta+","+debe+","+haber+","+saldoF+","+"----");
+                            tmovimientoH =tmovimientoH+movimientoH;
+                            saldoFD=movimientoD-movimientoH;
+                            tsaldoFD=tsaldoFD+saldoFD;
+                            datos1 = (codigoB+","+cuenta+","+debe+","+haber+","+saldoFD+","+"----");
                             lista.add(datos1);
 
                         
-                        }else{
+             }else{
                             debe=Integer.toString(movimientoD);
+                            tmovimientoD = tmovimientoD+movimientoD;
                             haber=Integer.toString(movimientoH);
-                            saldoF=movimientoD-movimientoH;
-                            datos1 = (codigoB+","+cuenta+","+debe+","+haber+","+"-----"+","+saldoF);
+                            tmovimientoH =tmovimientoH+movimientoH;                           
+                            saldoFH=movimientoD-movimientoH;
+                            tsaldoFH=tsaldoFH+saldoFH;          
+                            datos1 = (codigoB+","+cuenta+","+debe+","+haber+","+"-----"+","+saldoFH);
                             lista.add(datos1);
                         
-                        }
-                       
+             }
+            datos1 =(""+","+""+","+tmovimientoD+","+tmovimientoH+","+tsaldoFD+","+tsaldoFH);
+            lista.add(datos1);         
            
             for (int i = 0; i <=lista.size(); i++) {
                  datosN = lista.get(i).split(",");
