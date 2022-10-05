@@ -5,18 +5,55 @@
  */
 package Formularios;
 
+import Entidades.Conector;
+import Entidades.Dcatalogo;
+import static Formularios.Dashboard.content;
+import Models.AsientoModel;
+import java.awt.BorderLayout;
+import java.awt.Desktop;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.io.File;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import javax.swing.JTable;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+
 /**
  *
- * @author Eterna
+ * @author Andy
  */
-public class Mayori extends javax.swing.JInternalFrame {
+public class Mayori extends javax.swing.JPanel {
 
+    Dcatalogo archivo = new Dcatalogo();
+    DefaultTableModel jtModelo;
+    ArrayList<String> datos;
+    TableRowSorter trs ;
+    AsientoModel cn;
     /**
-     * Creates new form Mayori
+     * Creates new form Catalogo
      */
-    public Mayori() {
+    public Mayori() throws SQLException {
         initComponents();
+        jtModelo = (DefaultTableModel) this.jTable1.getModel(); 
+        cn = new AsientoModel();
+        this.cargarDatos();   
     }
+    public void cargarDatos() throws SQLException 
+    {
+        jtModelo = cn.obtenerDatos();
+        this.jTable1.setModel(jtModelo);
+        this.jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        //this.jTable1.setFillsViewportHeight(true);
+        
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -27,21 +64,192 @@ public class Mayori extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        fecha1 = new com.toedter.calendar.JDateChooser();
+        fecha2 = new com.toedter.calendar.JDateChooser();
+        jLabel2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel1.setFont(new java.awt.Font("Roboto Black", 2, 36)); // NOI18N
+        jLabel1.setText("Resumen de Asientos ");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "N° Asiento", "Codigo", "Cuenta", "Debe", "Haber", "fecha"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        jLabel2.setText("Hasta");
+
+        jButton1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButton1.setText("Filtrar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButton2.setText("Imprimir");
+
+        jButton3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButton3.setText("Nuevo Asiento");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(428, 428, 428)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(82, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(fecha1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(53, 53, 53)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(52, 52, 52)
+                                .addComponent(fecha2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(55, 55, 55)
+                                .addComponent(jButton1)
+                                .addGap(28, 28, 28)
+                                .addComponent(jButton2)))
+                        .addGap(210, 210, 210))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 752, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(65, 65, 65))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(fecha1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fecha2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton1)
+                        .addComponent(jButton2)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(57, 57, 57))
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        asientoContable newasiento = new asientoContable();
+        newasiento.setSize(900, 540);
+        newasiento.setLocation(0,0);
+        content.removeAll();
+        content.add(newasiento, BorderLayout.CENTER);
+        content.revalidate();
+        content.repaint();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+       this.eliminar();
+        Conector cc = new Conector();
+        Connection cn = cc.conectar();
+        SimpleDateFormat DateFor = new SimpleDateFormat("yyyy-MM-dd");
+        String filtrof1 = DateFor.format(fecha1.getDate());
+        String filtrof2 = DateFor.format(fecha2.getDate());
+        String consultafiltra="SELECT nombrec,fecha,debe,haber FROM asiento  WHERE fecha BETWEEN '"+filtrof1+"' AND '"+filtrof2+"' order by codigo" ;
+        ArrayList<String> lista = new ArrayList<>();
+       String datos1,nasiento,codigo,cuenta="--",debe,haber,fecha; 
+
+       try{ 
+             Statement stmt = cn.createStatement();
+             ResultSet rs  = stmt.executeQuery(consultafiltra);
+             String[] datosN = new String[4]; 
+             while(rs.next()){
+//                    String vid=(String)(rs.getInt("id"));
+//                    String vcodigo= (String)(rs.getInt("codigo"));
+                    
+                //nasiento = Integer.toString(rs.getInt("nasiento"));
+//                codigo=Integer.toString(rs.getInt("codigo"));
+                 
+                if(cuenta != rs.getString("nombrec")){
+                    System.out.println("entre en nommbres diferentes");
+                    cuenta = rs.getString("nombrec");
+
+                    System.out.println(cuenta);
+                }
+                else{
+                    System.out.println("entre en nommbres iguales");
+                    cuenta="--";
+                }
+                
+                debe = Integer.toString(rs.getInt("debe"));
+                haber = Integer.toString(rs.getInt("haber"));
+                fecha = rs.getString("fecha");
+                datos1 = (cuenta+","+debe+","+haber+","+fecha);
+                    
+                      lista.add(datos1);
+                }
+            for (int i = 0; i <=lista.size(); i++) {
+                 datosN = lista.get(i).split(",");
+                 System.out.println(""+datosN);
+                jtModelo.addRow(datosN);
+
+            }  
+            
+            jTable1.setModel(jtModelo);
+//            jtModelo.setColumnCount(0);
+//            jtModelo.setRowCount(0);
+            
+       }catch( Exception e ) {
+
+          System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+        }
+       
+        cc.close();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+      public void eliminar(){
+           jtModelo.getDataVector().removeAllElements(); 
+           jtModelo.fireTableDataChanged();
+
+        
+    
+
+       }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.toedter.calendar.JDateChooser fecha1;
+    private com.toedter.calendar.JDateChooser fecha2;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

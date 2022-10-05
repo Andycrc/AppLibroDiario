@@ -506,6 +506,18 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_asientoCMousePressed
 
     private void btn_usersMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_usersMousePressed
+        Mayori may =null;
+        try {
+            may = new Mayori();
+        } catch (SQLException ex) {
+            Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        may.setSize(900, 540);
+        may.setLocation(0, 0);
+        this.content.removeAll();
+        content.add(may, BorderLayout.CENTER);
+        content.revalidate();
+        content.repaint();
         
         
     }//GEN-LAST:event_btn_usersMousePressed

@@ -204,9 +204,7 @@ public class AsientosConatables extends javax.swing.JPanel {
                     
                     
                     
-//                    String vdebe=(String) tasiento.getValueAt(i, 2);
-//                    String vhaber=(String) tasiento.getValueAt(i, 3);
-//                    String vfecha=(String) tasiento.getValueAt(i, 4);
+
                       lista.add(datos1);
                 }
             for (int i = 0; i <=lista.size(); i++) {

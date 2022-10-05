@@ -42,7 +42,8 @@ public class Catalogo extends javax.swing.JPanel {
             jtModelo.addRow(datosN);
 
         }  
-    }    
+    }   
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
