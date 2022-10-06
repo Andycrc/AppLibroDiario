@@ -34,10 +34,9 @@ public class Dashboard extends javax.swing.JFrame {
         this.jLabel6.setText("Fecha: " + dia +  " de "+mes+" "+annio);
          this.principal();
          
-        
+         
+         
     }
-
-    
     public void principal(){
 //        Home hm1 = new Home();
 //        hm1.setSize(900, 540);
@@ -45,7 +44,7 @@ public class Dashboard extends javax.swing.JFrame {
 //        content.removeAll();
 //        content.add(hm1, BorderLayout.CENTER);
 //        content.revalidate();
-//        content.repaint();
+//        content.repaint();        
     }
     
     
@@ -73,6 +72,7 @@ public class Dashboard extends javax.swing.JFrame {
         Menu = new javax.swing.JPanel();
         btn_home = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         btn_users = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
@@ -88,7 +88,6 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel24 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -105,7 +104,7 @@ public class Dashboard extends javax.swing.JFrame {
         Background.setBackground(new java.awt.Color(204, 204, 204));
         Background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        Header.setBackground(new java.awt.Color(0, 204, 102));
+        Header.setBackground(new java.awt.Color(51, 153, 255));
 
         red_squr.setBackground(new java.awt.Color(25, 118, 210));
         red_squr.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -121,8 +120,9 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
+        exit.setBackground(new java.awt.Color(51, 102, 255));
         exit.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        exit.setForeground(new java.awt.Color(102, 102, 102));
+        exit.setForeground(new java.awt.Color(255, 51, 0));
         exit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         exit.setText("X");
         exit.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -155,26 +155,27 @@ public class Dashboard extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Roboto Light", 0, 30)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Bienvenidos");
+        jLabel6.setText("Fecha");
 
         javax.swing.GroupLayout HeaderLayout = new javax.swing.GroupLayout(Header);
         Header.setLayout(HeaderLayout);
         HeaderLayout.setHorizontalGroup(
             HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(HeaderLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(red_squr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(HeaderLayout.createSequentialGroup()
-                .addGap(134, 134, 134)
+                .addContainerGap()
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 492, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 570, Short.MAX_VALUE)
+                .addComponent(red_squr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         HeaderLayout.setVerticalGroup(
             HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(HeaderLayout.createSequentialGroup()
-                .addComponent(red_squr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(red_squr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(HeaderLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         Background.add(Header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1170, 90));
@@ -206,10 +207,10 @@ public class Dashboard extends javax.swing.JFrame {
 
         content.setBackground(new java.awt.Color(255, 255, 255));
 
-        Menu.setBackground(new java.awt.Color(0, 153, 51));
+        Menu.setBackground(new java.awt.Color(51, 51, 51));
         Menu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btn_home.setBackground(new java.awt.Color(0, 255, 51));
+        btn_home.setBackground(new java.awt.Color(51, 102, 255));
         btn_home.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btn_home.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -227,9 +228,13 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Iniciar");
-        btn_home.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, -1, 30));
+        btn_home.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, -1, 30));
 
-        Menu.add(btn_home, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 180, 270, 50));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/home-outline.png"))); // NOI18N
+        btn_home.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 30, 30));
+
+        Menu.add(btn_home, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 200, 270, 50));
 
         btn_users.setBackground(new java.awt.Color(0, 153, 51));
         btn_users.setToolTipText("");
@@ -316,7 +321,7 @@ public class Dashboard extends javax.swing.JFrame {
         Menu.add(btn_reports, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 430, -1, -1));
 
         jSeparator1.setPreferredSize(new java.awt.Dimension(50, 5));
-        Menu.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 130, 190, 20));
+        Menu.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 1170, 20));
 
         btn_reports1.setBackground(new java.awt.Color(0, 153, 51));
         btn_reports1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -344,16 +349,18 @@ public class Dashboard extends javax.swing.JFrame {
         btn_reports1.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 30, 30));
 
         Menu.add(btn_reports1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, -1, -1));
-        Menu.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 80, 250, -1));
 
-        jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jTextField1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jTextField1.setText("UNICAES");
+        jTextField1.setToolTipText("");
+        jTextField1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jTextField1.setName(""); // NOI18N
+        Menu.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 80, 320, 30));
+
+        jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel17.setText("Ingrese el nombre de su empresa");
-        Menu.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 30, -1, 30));
-
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/home-outline.png"))); // NOI18N
-        Menu.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 240, 30, 30));
+        jLabel17.setText("INGRESE EL NOMBRE DE SU EMPRESA:");
+        Menu.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, 340, 30));
 
         javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
         content.setLayout(contentLayout);
@@ -361,7 +368,7 @@ public class Dashboard extends javax.swing.JFrame {
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contentLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Menu, javax.swing.GroupLayout.DEFAULT_SIZE, 1170, Short.MAX_VALUE))
+                .addComponent(Menu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         contentLayout.setVerticalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -594,10 +601,10 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    public static javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField1;
+    public static javax.swing.JTextField jTextField1;
     private javax.swing.JPanel red_squr;
     // End of variables declaration//GEN-END:variables
 }

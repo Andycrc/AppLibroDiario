@@ -19,12 +19,25 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport; 
+import net.sf.jasperreports.engine.JasperCompileManager; 
+import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -37,6 +50,8 @@ public class AsientosConatables extends javax.swing.JPanel {
     ArrayList<String> datos;
     TableRowSorter trs ;
     AsientoModel cn;
+//    ArrayList<String> listaPDF;
+//     String datos2="";
     /**
      * Creates new form Catalogo
      */
@@ -45,7 +60,15 @@ public class AsientosConatables extends javax.swing.JPanel {
         jtModelo = (DefaultTableModel) this.jTable1.getModel(); 
         cn = new AsientoModel();
         this.cargarDatos();   
+        this.jButton2.setEnabled(false);
     }
+    
+    public void imprimripdf(){
+       
+    }
+    
+    
+    
     public void cargarDatos() throws SQLException 
     {
         jtModelo = cn.obtenerDatos();
@@ -74,6 +97,7 @@ public class AsientosConatables extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -94,6 +118,11 @@ public class AsientosConatables extends javax.swing.JPanel {
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButton1.setText("Filtrar");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -102,12 +131,25 @@ public class AsientosConatables extends javax.swing.JPanel {
 
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButton2.setText("Imprimir");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton3.setText("Nuevo Asiento");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButton4.setText("Imprimir");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
             }
         });
 
@@ -134,8 +176,10 @@ public class AsientosConatables extends javax.swing.JPanel {
                                 .addGap(55, 55, 55)
                                 .addComponent(jButton1)
                                 .addGap(28, 28, 28)
-                                .addComponent(jButton2)))
-                        .addGap(210, 210, 210))
+                                .addComponent(jButton2)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton4)))
+                        .addGap(117, 117, 117))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 752, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(65, 65, 65))))
@@ -152,7 +196,8 @@ public class AsientosConatables extends javax.swing.JPanel {
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton1)
-                        .addComponent(jButton2)))
+                        .addComponent(jButton2)
+                        .addComponent(jButton4)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
@@ -178,17 +223,19 @@ public class AsientosConatables extends javax.swing.JPanel {
        this.eliminar();
         Conector cc = new Conector();
         Connection cn = cc.conectar();
+        
         SimpleDateFormat DateFor = new SimpleDateFormat("yyyy-MM-dd");
         String filtrof1 = DateFor.format(fecha1.getDate());
         String filtrof2 = DateFor.format(fecha2.getDate());
-        String consultafiltra="SELECT nasiento,codigo,nombrec,debe,haber,fecha FROM asiento WHERE fecha BETWEEN '"+filtrof1+"' AND '"+filtrof2+"'";
-        System.out.println(""+consultafiltra);
-        ArrayList<String> lista = new ArrayList<>();
         
+        
+        String consultafiltra="SELECT nasiento,codigo,nombrec,debe,haber,fecha FROM asiento WHERE fecha BETWEEN '"+filtrof1+"' AND '"+filtrof2+"'";
+        System.out.println("consulta a BD: "+consultafiltra);
+        ArrayList<String> lista = new ArrayList<>();
        try{ 
              Statement stmt = cn.createStatement();
              ResultSet rs  = stmt.executeQuery(consultafiltra);
-             System.out.println("aqui llegue");
+             //System.out.println("aqui llegue");
              String[] datosN = new String[4]; 
              while(rs.next()){
 //                    String vid=(String)(rs.getInt("id"));
@@ -201,40 +248,76 @@ public class AsientosConatables extends javax.swing.JPanel {
                 debe = Integer.toString(rs.getInt("debe"));
                 haber = Integer.toString(rs.getInt("haber"));
                 fecha = rs.getString("fecha");
+                
                 datos1 = (nasiento+","+codigo+","+cuenta+","+debe+","+haber+","+ fecha);
-                    System.out.println(""+datos1);
-                    
-                    
-                    
-
-                      lista.add(datos1);
+                System.out.println("Recuperado: "+datos1);
+                lista.add(datos1);
+//                
+//                datos2 = (nasiento+codigo+cuenta+debe+haber+fecha);
+//                System.out.println("ListaPDF "+datos2);//DE DATOS1 SE PUEDE OBTENER LOS VALORES
+//                listaPDF.add(datos2);
                 }
-            for (int i = 0; i <=lista.size(); i++) {
+             
+            for (int i = 0; i <=lista.size(); i++) {//obtine la cantidad de filas
                  datosN = lista.get(i).split(",");
-                 System.out.println(""+datosN);
+                 //System.out.println(""+datosN);
                 jtModelo.addRow(datosN);
-
+                System.out.println("Fila "+i);
+                
             }  
             
             jTable1.setModel(jtModelo);
 //            jtModelo.setColumnCount(0);
 //            jtModelo.setRowCount(0);
             
-       }catch( Exception e ) {
+       }catch( SQLException e ) {
 
           System.err.println( e.getClass().getName() + ": " + e.getMessage() );
         }
        
         cc.close();
     }//GEN-LAST:event_jButton1ActionPerformed
+  
+        
+    
+    
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+        this.jButton2.setEnabled(true);
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        ArrayList<String> listapdf = new ArrayList<>();
+        String valor2 ="";
+        for (int i = 0; i < jTable1.getRowCount(); i++) { 
+        }
+        try {
+           JasperReport jr=(JasperReport) JRLoader.loadObjectFromFile("..\\AppLibroDiario\\src\\reportes\\asiento_contable.jasper");
+            //Map parametro = new HashMap();
+            Map parametro = new HashMap<String,Object>();            
+            parametro.put("empresa","UNICAES2 EMPRESA BRASILEÑA");
+            parametro.put("p_nasiento","1");
+            parametro.put("p_codigo","11011");
+            parametro.put("p_cuenta","Bancos");
+            parametro.put("p_debe","1500");
+            parametro.put("p_haber","00.00");
+            parametro.put("p_fecha","06-10-2022");
+            JasperPrint jp = JasperFillManager.fillReport(jr, parametro,new JREmptyDataSource());
+            JasperViewer verpdf = new JasperViewer(jp,false);
+            verpdf.setVisible(true);
+        } catch (JRException e) {
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
 
       public void eliminar(){
            jtModelo.getDataVector().removeAllElements(); 
            jtModelo.fireTableDataChanged();
-
-        
-    
-
        }
     
 
@@ -244,6 +327,7 @@ public class AsientosConatables extends javax.swing.JPanel {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
