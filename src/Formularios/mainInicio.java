@@ -33,10 +33,10 @@ public class mainInicio extends javax.swing.JFrame {
         Home hm1 = new Home();
         hm1.setSize(900, 540);
         hm1.setLocation(0,0);
-        content.removeAll();
-        content.add(hm1, BorderLayout.CENTER);
-        content.revalidate();
-        content.repaint();
+        contenedor.removeAll();
+        contenedor.add(hm1, BorderLayout.CENTER);
+        contenedor.revalidate();
+        contenedor.repaint();
     }
 
     /**
@@ -78,7 +78,7 @@ public class mainInicio extends javax.swing.JFrame {
         exit = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         Title = new javax.swing.JPanel();
-        content = new javax.swing.JPanel();
+        contenedor = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setUndecorated(true);
@@ -394,16 +394,16 @@ public class mainInicio extends javax.swing.JFrame {
             .addGap(0, 25, Short.MAX_VALUE)
         );
 
-        content.setBackground(new java.awt.Color(255, 255, 255));
+        contenedor.setBackground(new java.awt.Color(255, 255, 255));
 
-        javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
-        content.setLayout(contentLayout);
-        contentLayout.setHorizontalGroup(
-            contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout contenedorLayout = new javax.swing.GroupLayout(contenedor);
+        contenedor.setLayout(contenedorLayout);
+        contenedorLayout.setHorizontalGroup(
+            contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 900, Short.MAX_VALUE)
         );
-        contentLayout.setVerticalGroup(
-            contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        contenedorLayout.setVerticalGroup(
+            contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 540, Short.MAX_VALUE)
         );
 
@@ -418,7 +418,7 @@ public class mainInicio extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(Menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
-                        .addComponent(content, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(contenedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -429,7 +429,7 @@ public class mainInicio extends javax.swing.JFrame {
                     .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Menu, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(content, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(contenedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         pack();
@@ -451,10 +451,10 @@ public class mainInicio extends javax.swing.JFrame {
         Home hm = new Home();
         hm.setSize(900, 540);
         hm.setLocation(0, 0);
-        content.removeAll();
-        content.add(hm, BorderLayout.CENTER);
-        content.revalidate();
-        content.repaint();
+        contenedor.removeAll();
+        contenedor.add(hm, BorderLayout.CENTER);
+        contenedor.revalidate();
+        contenedor.repaint();
     }//GEN-LAST:event_btn_homeMousePressed
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
@@ -483,10 +483,10 @@ public class mainInicio extends javax.swing.JFrame {
         }
         asic.setSize(900, 540);
         asic.setLocation(0, 0);
-        content.removeAll();
-        content.add(asic, BorderLayout.CENTER);
-        content.revalidate();
-        content.repaint();
+        contenedor.removeAll();
+        contenedor.add(asic, BorderLayout.CENTER);
+        contenedor.revalidate();
+        contenedor.repaint();
 
     }//GEN-LAST:event_btn_asientoCMousePressed
 
@@ -510,10 +510,10 @@ public class mainInicio extends javax.swing.JFrame {
         }
         may.setSize(900, 540);
         may.setLocation(0, 0);
-        this.content.removeAll();
-        content.add(may, BorderLayout.CENTER);
-        content.revalidate();
-        content.repaint();
+        this.contenedor.removeAll();
+        contenedor.add(may, BorderLayout.CENTER);
+        contenedor.revalidate();
+        contenedor.repaint();
 
     }//GEN-LAST:event_btn_usersMousePressed
 
@@ -537,10 +537,10 @@ public class mainInicio extends javax.swing.JFrame {
         }
         balance.setSize(900, 540);
         balance.setLocation(0, 0);
-        this.content.removeAll();
-        content.add(balance, BorderLayout.CENTER);
-        content.revalidate();
-        content.repaint();
+        this.contenedor.removeAll();
+        contenedor.add(balance, BorderLayout.CENTER);
+        contenedor.revalidate();
+        contenedor.repaint();
     }//GEN-LAST:event_btn_booksMousePressed
 
     private void btn_reportsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_reportsMouseEntered
@@ -575,10 +575,10 @@ public class mainInicio extends javax.swing.JFrame {
         Catalogo cat = new Catalogo();
         cat.setSize(900, 540);
         cat.setLocation(0, 0);
-        this.content.removeAll();
-        content.add(cat, BorderLayout.CENTER);
-        content.revalidate();
-        content.repaint();
+        this.contenedor.removeAll();
+        contenedor.add(cat, BorderLayout.CENTER);
+        contenedor.revalidate();
+        contenedor.repaint();
 
     }//GEN-LAST:event_btn_lendsMousePressed
 
@@ -689,7 +689,7 @@ public class mainInicio extends javax.swing.JFrame {
     private javax.swing.JPanel btn_reports;
     private javax.swing.JPanel btn_reports1;
     private javax.swing.JPanel btn_users;
-    public static javax.swing.JPanel content;
+    public static javax.swing.JPanel contenedor;
     private javax.swing.JLabel exit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

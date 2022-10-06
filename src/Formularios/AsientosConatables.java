@@ -8,6 +8,7 @@ package Formularios;
 import Entidades.Conector;
 import Entidades.Dcatalogo;
 import static Formularios.Dashboard.content;
+import static Formularios.mainInicio.contenedor;
 import Models.AsientoModel;
 import java.awt.BorderLayout;
 import java.awt.Desktop;
@@ -162,13 +163,14 @@ public class AsientosConatables extends javax.swing.JPanel {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        System.out.println("hola");
         asientoContable newasiento = new asientoContable();
         newasiento.setSize(900, 540);
         newasiento.setLocation(0,0);
-        content.removeAll();
-        content.add(newasiento, BorderLayout.CENTER);
-        content.revalidate();
-        content.repaint();
+        contenedor.removeAll();
+        contenedor.add(newasiento, BorderLayout.CENTER);
+        contenedor.revalidate();
+        contenedor.repaint();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
