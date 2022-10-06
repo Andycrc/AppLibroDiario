@@ -9,6 +9,7 @@ import Entidades.Conector;
 import Entidades.Dcatalogo;
 import Entidades.Render;
 import static Formularios.Dashboard.content;
+import static Formularios.mainInicio.contenedor;
 import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
 import static com.sun.jmx.remote.internal.IIOPHelper.connect;
 import java.awt.BorderLayout;
@@ -527,10 +528,10 @@ public class asientoContable extends javax.swing.JPanel {
           }
                 newasiento.setSize(900, 540);
                  newasiento.setLocation(0,0);
-                content.removeAll();
-             content.add(newasiento, BorderLayout.CENTER);
-             content.revalidate();
-             content.repaint();
+                contenedor.removeAll();
+             contenedor.add(newasiento, BorderLayout.CENTER);
+             contenedor.revalidate();
+             contenedor.repaint();
     }//GEN-LAST:event_jButton2ActionPerformed
 
 
