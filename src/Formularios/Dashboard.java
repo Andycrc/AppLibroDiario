@@ -142,15 +142,21 @@ public class Dashboard extends javax.swing.JFrame {
         red_squr.setLayout(red_squrLayout);
         red_squrLayout.setHorizontalGroup(
             red_squrLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, red_squrLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGap(0, 66, Short.MAX_VALUE)
+            .addGroup(red_squrLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(red_squrLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         red_squrLayout.setVerticalGroup(
             red_squrLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(red_squrLayout.createSequentialGroup()
-                .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addGap(0, 57, Short.MAX_VALUE)
+            .addGroup(red_squrLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(red_squrLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         jLabel6.setFont(new java.awt.Font("Roboto Light", 0, 30)); // NOI18N
@@ -164,8 +170,9 @@ public class Dashboard extends javax.swing.JFrame {
             .addGroup(HeaderLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 570, Short.MAX_VALUE)
-                .addComponent(red_squr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(74, 74, 74)
+                .addComponent(red_squr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(476, Short.MAX_VALUE))
         );
         HeaderLayout.setVerticalGroup(
             HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -232,9 +239,9 @@ public class Dashboard extends javax.swing.JFrame {
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/home-outline.png"))); // NOI18N
-        btn_home.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 30, 30));
+        btn_home.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 30, 30));
 
-        Menu.add(btn_home, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 200, 270, 50));
+        Menu.add(btn_home, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 190, 270, 50));
 
         btn_users.setBackground(new java.awt.Color(0, 153, 51));
         btn_users.setToolTipText("");
@@ -353,14 +360,14 @@ public class Dashboard extends javax.swing.JFrame {
         jTextField1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jTextField1.setText("UNICAES");
         jTextField1.setToolTipText("");
-        jTextField1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jTextField1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jTextField1.setName(""); // NOI18N
-        Menu.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 80, 320, 30));
+        Menu.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, 320, 30));
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
         jLabel17.setText("INGRESE EL NOMBRE DE SU EMPRESA:");
-        Menu.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, 340, 30));
+        Menu.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, 340, 30));
 
         javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
         content.setLayout(contentLayout);
@@ -383,7 +390,9 @@ public class Dashboard extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(Background, javax.swing.GroupLayout.PREFERRED_SIZE, 698, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

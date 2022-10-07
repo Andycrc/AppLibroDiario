@@ -246,7 +246,7 @@ public class BalanceGfrm extends javax.swing.JPanel {
                             tmovimientoD = tmovimientoD+movimientoD;
                             haber=Integer.toString(movimientoH);
                             tmovimientoH =tmovimientoH+movimientoH;
-                            saldoFH=movimientoD-movimientoH;
+                            saldoFH=movimientoH-movimientoD;
                             tsaldoFH=tsaldoFH+saldoFH;
                             datos1 = (codigoB+","+cuenta+","+debe+","+haber+","+"-----"+","+saldoFH);
                             lista.add(datos1);
@@ -286,7 +286,7 @@ public class BalanceGfrm extends javax.swing.JPanel {
                             tmovimientoD = tmovimientoD+movimientoD;
                             haber=Integer.toString(movimientoH);
                             tmovimientoH =tmovimientoH+movimientoH;                           
-                            saldoFH=movimientoD-movimientoH;
+                            saldoFH=movimientoH-movimientoD;
                             tsaldoFH=tsaldoFH+saldoFH;          
                             datos1 = (codigoB+","+cuenta+","+debe+","+haber+","+"-----"+","+saldoFH);
                             lista.add(datos1);
