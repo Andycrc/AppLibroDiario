@@ -20,13 +20,13 @@ public class Render extends DefaultTableCellRenderer{
         
         if(value instanceof JButton){
             JButton btn = (JButton)value;
-            if(isSelected){
-                btn.setForeground(table.getSelectionForeground());
-                btn.setBackground(table.getSelectionBackground());
-            }else{
-                btn.setForeground(table.getForeground());
-                btn.setBackground(UIManager.getColor("Button.background"));
-            }
+//            if(isSelected){
+//                btn.setForeground(table.getSelectionForeground());
+//                btn.setBackground(table.getSelectionBackground());
+//            }else{
+//                btn.setForeground(table.getForeground());
+//                btn.setBackground(UIManager.getColor("Button.background"));
+//            }
             return btn;
         }
         

@@ -28,6 +28,7 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static javax.management.remote.JMXConnectorFactory.connect;
@@ -51,6 +52,7 @@ public class asientoContable extends javax.swing.JPanel {
       TableRowSorter trs ;
       String vcodigo,vnombre,vdebe,vhaber,vfecha,vnumeroAsiento;
       String qry="";
+      int cont=0;
       
 
 
@@ -63,6 +65,10 @@ public class asientoContable extends javax.swing.JPanel {
         jtModelo1 = (DefaultTableModel) this.tasiento.getModel();   
         this.cargarParametros();
         this.cargarT2();
+
+        jtdebe.setEnabled(false);
+        jthaber.setEnabled(false);
+
 
     }
     //cargar tabla de catalogo de cuenta
@@ -98,7 +104,7 @@ public class asientoContable extends javax.swing.JPanel {
         this.pnombre.setText("");
         this.jtdebe.setText("");
         this.jthaber.setText("");
-        fechaA.setCalendar(null);
+//        fechaA.setCalendar(null);
     }
     //vaciar tabla
     public void eliminar(){
@@ -120,6 +126,8 @@ public class asientoContable extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
         tasiento = new javax.swing.JTable();
         jToggleButton1 = new javax.swing.JToggleButton();
@@ -130,16 +138,14 @@ public class asientoContable extends javax.swing.JPanel {
         pnombre = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        nombreE = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jtcodigoC = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         fechaA = new com.toedter.calendar.JDateChooser();
         jtdebe = new javax.swing.JTextField();
         jthaber = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        btndebe = new javax.swing.JRadioButton();
+        btnhaber = new javax.swing.JRadioButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(900, 564));
@@ -208,8 +214,6 @@ public class asientoContable extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Ingresar Datos"));
 
-        jLabel1.setText("Empresa:");
-
         jLabel2.setText("Buscar:");
 
         jtcodigoC.addActionListener(new java.awt.event.ActionListener() {
@@ -223,8 +227,6 @@ public class asientoContable extends javax.swing.JPanel {
             }
         });
 
-        jLabel4.setText("Haber:");
-
         jLabel5.setText("Fecha:");
 
         jthaber.addActionListener(new java.awt.event.ActionListener() {
@@ -233,7 +235,22 @@ public class asientoContable extends javax.swing.JPanel {
             }
         });
 
-        jLabel3.setText("Debe:");
+        buttonGroup2.add(btndebe);
+        btndebe.setText("Debe:");
+        btndebe.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btndebe.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btndebeMouseClicked(evt);
+            }
+        });
+
+        buttonGroup2.add(btnhaber);
+        btnhaber.setText("Haber:");
+        btnhaber.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnhaberMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -241,28 +258,27 @@ public class asientoContable extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jtdebe, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jthaber, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(fechaA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 13, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(nombreE, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jtcodigoC))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnhaber)
+                            .addComponent(btndebe))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jtcodigoC)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jtdebe, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(66, 66, 66)
+                                .addComponent(jLabel5)
+                                .addGap(45, 52, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jthaber, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(29, 29, 29)
+                                .addComponent(fechaA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -270,45 +286,31 @@ public class asientoContable extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nombreE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(jtcodigoC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(fechaA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel3)
-                        .addComponent(jtdebe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel4)
-                        .addComponent(jthaber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel5)))
-                .addContainerGap(43, Short.MAX_VALUE))
+                    .addComponent(jtcodigoC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(fechaA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jtdebe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btndebe))
+                        .addGap(23, 23, 23)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jthaber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnhaber))))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 36, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(203, 203, 203)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(pcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(40, 40, 40)
-                        .addComponent(pnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(60, 60, 60))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(267, 267, 267)
                 .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -316,24 +318,46 @@ public class asientoContable extends javax.swing.JPanel {
                 .addComponent(jButton2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 810, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45))
+                .addContainerGap(31, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 810, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(45, 45, 45))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(35, 35, 35))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(14, 14, 14)
+                                .addComponent(jButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(pcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(pnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 502, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(32, 32, 32))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(pcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(pnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 17, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(pcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -416,26 +440,42 @@ public class asientoContable extends javax.swing.JPanel {
         vnombre=this.pnombre.getText();
         vdebe=this.jtdebe.getText();
         vhaber=this.jthaber.getText();
-//        int año = fechaA.getCalendar().get(Calendar.YEAR);
-//        int mes = fechaA.getCalendar().get(Calendar.MONTH);
-//        int dia = fechaA.getCalendar().get(Calendar.DAY_OF_MONTH);
-//        vfecha =(año+"/"+mes+"/"+dia);
-        SimpleDateFormat DateFor = new SimpleDateFormat("yyyy-MM-dd");
-        vfecha = DateFor.format(fechaA.getDate());
-        System.out.println(""+vfecha);
+        if(cont<1){
+                SimpleDateFormat DateFor = new SimpleDateFormat("yyyy-MM-dd");
+                vfecha = DateFor.format(fechaA.getDate());
+                System.out.println(""+vfecha);
+                fechaA.setEnabled(false);
         
+        }
+        double vvdebe,vvhaber;
+        vvdebe=Double.valueOf(vdebe);
+        vvhaber=Double.valueOf(vhaber);
+        System.out.println(""+vvdebe+""+vvhaber);
+
+
+
+     
         if(vcodigo.isEmpty()||vnombre.isEmpty()||vfecha.isEmpty()){
                         JOptionPane.showMessageDialog(null, "Llene todos los datos", "Advertencia", JOptionPane.WARNING_MESSAGE);
-
         }else{
+          if(vvdebe<0 || vvhaber<0){
+              System.out.println("entre a numero nega");
+           JOptionPane.showMessageDialog(null, "Los valores no deben ser negativos", "Advertencia", JOptionPane.WARNING_MESSAGE);
+          }else{
             JButton btn2 = new JButton("Eliminar");
             btn2.setName("e");
 
             jtModelo1.addRow(new Object[]{
                 vcodigo,vnombre,vdebe,vhaber,vfecha,btn2
             });
-            this.limpiarjtex();
+            this.limpiarjtex();       
+          
+          }
+
         }
+
+        
+
 
         
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -446,73 +486,92 @@ public class asientoContable extends javax.swing.JPanel {
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         // TODO add your handling code here:
+        cont=0;
+        fechaA.setEnabled(true);
+        fechaA.setCalendar(null);
             Conector cc = new Conector();
             Connection cn = cc.conectar();
             String consult = "insert into asiento(debe,haber,codigo,nombrec,nasiento,fecha) values(?,?,?,?,?,?)";
             String qry = "SELECT nasiento FROM asiento ORDER BY  nasiento DESC LIMIT 1";
-        try {
-            Statement stmt = cn.createStatement();
-             ResultSet rs  = stmt.executeQuery(qry);
-             System.out.println("aqui");
-             int numecoAsiento= rs.getInt("nasiento");             
-             numecoAsiento=numecoAsiento+1;
-        
-            if (tasiento.getRowCount() == 0) {
-               JOptionPane.showMessageDialog(null, "No Existen Datos", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            } else {                
-                for (int i = 0; i < tasiento.getRowCount(); i++) {
-                    vcodigo=(String) tasiento.getValueAt(i, 0);
-                    vnombre=(String) tasiento.getValueAt(i, 1);
-                    vdebe=(String) tasiento.getValueAt(i, 2);
-                    vhaber=(String) tasiento.getValueAt(i, 3);
-                    vfecha=(String) tasiento.getValueAt(i, 4);
-                    //vnumeroAsiento = (String) tasiento.getValueAt(i, 5);
+        double sumH=0,sumD=0;
 
-                  PreparedStatement ps = cn.prepareStatement(consult);
+        for (int i = 0; i < tasiento.getRowCount(); i++) {
+             sumH=sumH+Double.valueOf((String)tasiento.getValueAt(i, 3));      
+          sumD=sumD+Double.valueOf((String)tasiento.getValueAt(i, 2));   
 
-                  if(vhaber.isEmpty()){
-                    System.out.println("entro en debe");
-                    ps.setDouble(1, Double.parseDouble(vdebe));
-                    ps.setDouble(2, 0.0);
-                    ps.setInt(3, Integer.parseInt(vcodigo));
-                    ps.setString(4, vnombre);
-                    ps.setInt(5, numecoAsiento);
-                    ps.setString(6,vfecha);
-
-
-
-                  }
-                  else if(vdebe.isEmpty()){
-                        System.out.println("entro en haber");
-
-                        ps.setDouble(1, 0.0);
-                        ps.setDouble(2, Double.parseDouble(vhaber));
-                        ps.setInt(3, Integer.parseInt(vcodigo));
-                        ps.setString(4, vnombre);
-                        ps.setInt(5, numecoAsiento);
-                        ps.setString(6,vfecha);
-
-                  }
-                  else{
-                      System.out.println("error no entro");
-                  }
-                  ps.executeUpdate();
-
-
-                }
-            JOptionPane.showMessageDialog(null,"Asiento Guardado con exito.","Con exito",JOptionPane.INFORMATION_MESSAGE);
-  
-             
-           }
-
-        } catch ( Exception e ) {
-
-          System.err.println( e.getClass().getName() + ": " + e.getMessage() );
         }
-
+        if(sumH==sumD){
+            //        try {
+//            Statement stmt = cn.createStatement();
+//             ResultSet rs  = stmt.executeQuery(qry);
+//             System.out.println("aqui");
+//             int numecoAsiento= rs.getInt("nasiento");             
+//             numecoAsiento=numecoAsiento+1;
+//        
+//            if (tasiento.getRowCount() == 0) {
+//               JOptionPane.showMessageDialog(null, "No Existen Datos", "Advertencia", JOptionPane.WARNING_MESSAGE);
+//            } else {                
+//                for (int i = 0; i < tasiento.getRowCount(); i++) {
+//                    vcodigo=(String) tasiento.getValueAt(i, 0);
+//                    vnombre=(String) tasiento.getValueAt(i, 1);
+//                    vdebe=(String) tasiento.getValueAt(i, 2);
+//                    vhaber=(String) tasiento.getValueAt(i, 3);
+//                    vfecha=(String) tasiento.getValueAt(i, 4);
+//                    //vnumeroAsiento = (String) tasiento.getValueAt(i, 5);
+//
+//                  PreparedStatement ps = cn.prepareStatement(consult);
+//
+//                  if(vhaber.isEmpty()){
+//                    System.out.println("entro en debe");
+//                    ps.setDouble(1, Double.parseDouble(vdebe));
+//                    ps.setDouble(2, 0.0);
+//                    ps.setInt(3, Integer.parseInt(vcodigo));
+//                    ps.setString(4, vnombre);
+//                    ps.setInt(5, numecoAsiento);
+//                    ps.setString(6,vfecha);
+//
+//
+//
+//                  }
+//                  else if(vdebe.isEmpty()){
+//                        System.out.println("entro en haber");
+//
+//                        ps.setDouble(1, 0.0);
+//                        ps.setDouble(2, Double.parseDouble(vhaber));
+//                        ps.setInt(3, Integer.parseInt(vcodigo));
+//                        ps.setString(4, vnombre);
+//                        ps.setInt(5, numecoAsiento);
+//                        ps.setString(6,vfecha);
+//
+//                  }
+//                  else{
+//                      System.out.println("error no entro");
+//                  }
+//                  ps.executeUpdate();
+//
+//
+//                }
+//            JOptionPane.showMessageDialog(null,"Asiento Guardado con exito.","Con exito",JOptionPane.INFORMATION_MESSAGE);
+//  
+//             
+//           }
+//
+//        } catch ( Exception e ) {
+//
+//          System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+//        }
+//
         this.limpiarjtex();
         this.eliminar();
         cc.close();
+            
+        }else{
+           JOptionPane.showMessageDialog(null, "Los datos no son iguales", "Advertencia", JOptionPane.WARNING_MESSAGE);
+
+        }
+
+
+
 
         
         
@@ -534,15 +593,32 @@ public class asientoContable extends javax.swing.JPanel {
              contenedor.repaint();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void btndebeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btndebeMouseClicked
+        // TODO add your handling code here:
+        jtdebe.setEnabled(true);
+        jthaber.setText("0");
+        jthaber.setEnabled(false);
+
+    }//GEN-LAST:event_btndebeMouseClicked
+
+    private void btnhaberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnhaberMouseClicked
+        // TODO add your handling code here:
+        jthaber.setEnabled(true);
+        jtdebe.setText("0");
+        jtdebe.setEnabled(false);
+
+    }//GEN-LAST:event_btnhaberMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton btndebe;
+    private javax.swing.JRadioButton btnhaber;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private com.toedter.calendar.JDateChooser fechaA;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -551,7 +627,6 @@ public class asientoContable extends javax.swing.JPanel {
     private javax.swing.JTextField jtcodigoC;
     private javax.swing.JTextField jtdebe;
     private javax.swing.JTextField jthaber;
-    private javax.swing.JTextField nombreE;
     private javax.swing.JTextField pcodigo;
     private javax.swing.JTextField pnombre;
     private javax.swing.JTable tasiento;

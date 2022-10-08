@@ -39,8 +39,8 @@ public class mainInicio extends javax.swing.JFrame {
         contenedor.add(hm1, BorderLayout.CENTER);
         contenedor.revalidate();
         contenedor.repaint();
-        jl_empresa.setText("Empresa: ");
         Dashboard ds = new Dashboard();
+        jl_empresa.setText("Empresa: "+ds.empresa);
     }
 
     /**

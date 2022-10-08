@@ -22,7 +22,7 @@ public class Dashboard extends javax.swing.JFrame {
     int dia = fecha.get(Calendar.DAY_OF_MONTH);
     String MES[] = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
     Calendar c1 = Calendar.getInstance();
-    
+    public static String empresa;
   
     /**
      * Creates new form Dashboard
@@ -86,7 +86,7 @@ public class Dashboard extends javax.swing.JFrame {
         btn_reports1 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jtEmpresa = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -357,12 +357,12 @@ public class Dashboard extends javax.swing.JFrame {
 
         Menu.add(btn_reports1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, -1, -1));
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField1.setText("UNICAES");
-        jTextField1.setToolTipText("");
-        jTextField1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jTextField1.setName(""); // NOI18N
-        Menu.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, 320, 30));
+        jtEmpresa.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jtEmpresa.setText("UNICAES");
+        jtEmpresa.setToolTipText("");
+        jtEmpresa.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jtEmpresa.setName(""); // NOI18N
+        Menu.add(jtEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, 320, 30));
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
@@ -422,35 +422,35 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_exitMousePressed
 
     private void btn_usersMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_usersMousePressed
-        Mayori may =null;
-        try {
-            may = new Mayori();
-        } catch (SQLException ex) {
-            Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        may.setSize(900, 540);
-        may.setLocation(0, 0);
-        this.content.removeAll();
-        content.add(may, BorderLayout.CENTER);
-        content.revalidate();
-        content.repaint();
+//        Mayori may =null;
+//        try {
+//            may = new Mayori();
+//        } catch (SQLException ex) {
+//            Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        may.setSize(900, 540);
+//        may.setLocation(0, 0);
+//        this.content.removeAll();
+//        content.add(may, BorderLayout.CENTER);
+//        content.revalidate();
+//        content.repaint();
         
         
     }//GEN-LAST:event_btn_usersMousePressed
 
     private void btn_booksMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_booksMousePressed
-        BalanceGfrm balance=null;
-        try {
-            balance = new BalanceGfrm();
-        } catch (SQLException ex) {
-            Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        balance.setSize(900, 540);
-        balance.setLocation(0, 0);
-        this.content.removeAll();
-        content.add(balance, BorderLayout.CENTER);
-        content.revalidate();
-        content.repaint();
+//        BalanceGfrm balance=null;
+//        try {
+//            balance = new BalanceGfrm();
+//        } catch (SQLException ex) {
+//            Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        balance.setSize(900, 540);
+//        balance.setLocation(0, 0);
+//        this.content.removeAll();
+//        content.add(balance, BorderLayout.CENTER);
+//        content.revalidate();
+//        content.repaint();
     }//GEN-LAST:event_btn_booksMousePressed
 
     private void btn_reportsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_reportsMousePressed
@@ -528,6 +528,7 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void btn_homeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_homeMousePressed
 
+        empresa = jtEmpresa.getText();
         mainInicio menu = new mainInicio();
 //        emp.setSize(1200, 590);
 //        emp.setLocation(0, 0);
@@ -613,7 +614,7 @@ public class Dashboard extends javax.swing.JFrame {
     public static javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JSeparator jSeparator1;
-    public static javax.swing.JTextField jTextField1;
+    public static javax.swing.JTextField jtEmpresa;
     private javax.swing.JPanel red_squr;
     // End of variables declaration//GEN-END:variables
 }

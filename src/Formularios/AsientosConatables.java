@@ -5,8 +5,10 @@
  */
 package Formularios;
 
+import Entidades.AsientoTB;
 import Entidades.Conector;
 import Entidades.Dcatalogo;
+import Entidades.Render;
 import static Formularios.Dashboard.content;
 import static Formularios.mainInicio.contenedor;
 import Models.AsientoModel;
@@ -18,6 +20,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -26,6 +29,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JButton;
 //import javafx.scene.control.Cell;
 import javax.swing.JFileChooser;
 import javax.swing.JTable;
@@ -54,7 +58,8 @@ public class AsientosConatables extends javax.swing.JPanel {
 
     public AsientosConatables() throws SQLException {
         initComponents();
-        jtModelo = (DefaultTableModel) this.jTable1.getModel(); 
+
+        jtModelo = (DefaultTableModel) this.tablaAs.getModel(); 
         cn = new AsientoModel();
         this.cargarDatos();   
         this.jButton2.setEnabled(false);
@@ -68,9 +73,11 @@ public class AsientosConatables extends javax.swing.JPanel {
     
     public void cargarDatos() throws SQLException 
     {
+    
         jtModelo = cn.obtenerDatos();
-        this.jTable1.setModel(jtModelo);
-        this.jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        this.tablaAs.setModel(jtModelo);
+        this.tablaAs.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+
         //this.jTable1.setFillsViewportHeight(true);
         
     }
@@ -87,7 +94,7 @@ public class AsientosConatables extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaAs = new javax.swing.JTable();
         fecha1 = new com.toedter.calendar.JDateChooser();
         fecha2 = new com.toedter.calendar.JDateChooser();
         jLabel2 = new javax.swing.JLabel();
@@ -100,8 +107,8 @@ public class AsientosConatables extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Roboto Black", 2, 36)); // NOI18N
         jLabel1.setText("Resumen de Asientos ");
 
-        jTable1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaAs.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        tablaAs.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -109,7 +116,7 @@ public class AsientosConatables extends javax.swing.JPanel {
                 "N° Asiento", "Codigo", "Cuenta", "Debe", "Haber", "fecha"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tablaAs);
 
         jLabel2.setText("Hasta");
 
@@ -146,29 +153,31 @@ public class AsientosConatables extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(91, Short.MAX_VALUE)
-                .addComponent(fecha1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(53, 53, 53)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(52, 52, 52)
-                        .addComponent(fecha2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(55, 55, 55)
-                        .addComponent(jButton1)
-                        .addGap(28, 28, 28)
-                        .addComponent(jButton2)))
-                .addGap(210, 210, 210))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addGap(23, 23, 23))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1)
+                        .addGap(23, 23, 23))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 81, Short.MAX_VALUE)
+                        .addComponent(fecha1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(53, 53, 53)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(52, 52, 52)
+                                .addComponent(fecha2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(55, 55, 55)
+                                .addComponent(jButton1)
+                                .addGap(28, 28, 28)
+                                .addComponent(jButton2)))
+                        .addGap(210, 210, 210))))
             .addGroup(layout.createSequentialGroup()
-                .addGap(377, 377, 377)
+                .addGap(310, 310, 310)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -235,7 +244,6 @@ public class AsientosConatables extends javax.swing.JPanel {
                 fecha = rs.getString("fecha");
                 
                 datos1 = (nasiento+","+codigo+","+cuenta+","+debe+","+haber+","+ fecha);
-                System.out.println("Recuperado: "+datos1);
                 lista.add(datos1);
 //                
 //                datos2 = (nasiento+codigo+cuenta+debe+haber+fecha);
@@ -247,11 +255,10 @@ public class AsientosConatables extends javax.swing.JPanel {
                  datosN = lista.get(i).split(",");
                  //System.out.println(""+datosN);
                 jtModelo.addRow(datosN);
-                System.out.println("Fila "+i);
                 
             }  
             
-            jTable1.setModel(jtModelo);
+            tablaAs.setModel(jtModelo);
 //            jtModelo.setColumnCount(0);
 //            jtModelo.setRowCount(0);
             
@@ -272,7 +279,9 @@ public class AsientosConatables extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1MouseClicked
 
     public void exportarExcel(JTable t) throws IOException {
+        Dashboard ds = new Dashboard();
         JFileChooser chooser = new JFileChooser();
+        
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos de excel", "xls");
         chooser.setFileFilter(filter);
         chooser.setDialogTitle("Guardar archivo");
@@ -287,8 +296,8 @@ public class AsientosConatables extends javax.swing.JPanel {
                 archivoXLS.createNewFile();
                 Workbook libro = new HSSFWorkbook();
                 FileOutputStream archivo = new FileOutputStream(archivoXLS);
-                Sheet hoja = libro.createSheet("Asientos Contables");
-                hoja.setDisplayGridlines(false);
+                Sheet hoja = libro.createSheet("Asientos Contables"+ds.empresa);
+                hoja.setDisplayGridlines(true);
                 for (int f = 0; f < t.getRowCount(); f++) {
                     Row fila = hoja.createRow(f);
                     for (int c = 0; c < t.getColumnCount(); c++) {
@@ -325,7 +334,7 @@ public class AsientosConatables extends javax.swing.JPanel {
     
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
  try {
-            exportarExcel(jTable1);
+            exportarExcel(tablaAs);
         } catch (IOException ex) {
             System.out.println("Error: " + ex);
         }
@@ -347,6 +356,6 @@ public class AsientosConatables extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tablaAs;
     // End of variables declaration//GEN-END:variables
 }
