@@ -17,6 +17,16 @@ public class AsientoTB {
     private int debe;
     private int haber;
     private String fecha;
+    private String Comentario;
+
+    public String getComentario() {
+        return Comentario;
+    }
+
+    public void setComentario(String Comentario) {
+        this.Comentario = Comentario;
+    }
+    
 
     public int getnAsiento() {
         return nAsiento;

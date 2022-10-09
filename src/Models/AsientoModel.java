@@ -36,13 +36,14 @@ public class AsientoModel {
            
             
         
-        String[] columnNames = {"N° Asiento","Código", "Cuenta", "Debe", "Haber" , "Fecha"};
+        String[] columnNames = {"N° Asiento","Código", "Cuenta", "Comentario","Debe", "Haber" , "Fecha"};
         model.setColumnIdentifiers(columnNames);
         // Código a ejecutar si no hay errores
         String sql = "SELECT " +
                 "nasiento, "+
                  "codigo, " +
                  "nombrec, "+
+                "comentario,"+
                  "debe, "+
                  "haber, "+
                  "fecha "+
@@ -62,9 +63,11 @@ public class AsientoModel {
                 datos.setDebe(resultados.getInt("debe"));
                 datos.setHaber(resultados.getInt("haber"));
                 datos.setFecha(resultados.getString("fecha"));
+                datos.setComentario(resultados.getString("comentario"));
                model.addRow(new Object[]{datos.getnAsiento(), 
                    datos.getCodigo(),
                    datos.getNombrec(),
+                   datos.getComentario(),
                    datos.getDebe(),
                    datos.getHaber(),
                    datos.getFecha(),

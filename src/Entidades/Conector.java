@@ -25,7 +25,6 @@ public class Conector {
          connect = DriverManager.getConnection("jdbc:sqlite:"+url);
             if (connect!=null) {
               msj="Conectado";
-             System.out.println("Si");
         }
         }catch (SQLException ex) {
                  msj="No se ha podido conectar a la base de datos\n";
@@ -40,7 +39,6 @@ public class Conector {
     public void close(){
         try {
             connect.close();
-            System.out.println("cerrado");
         } catch (SQLException ex) {
                         System.out.println("No papa  revise");
 

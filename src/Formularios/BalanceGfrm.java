@@ -53,6 +53,8 @@ public class BalanceGfrm extends javax.swing.JPanel {
         initComponents();
         jtModelo = (DefaultTableModel) this.jTable1.getModel();
         cn = new AsientoModel();
+        btnExport.setEnabled(false);
+
 //        this.cargarDatos();   
     }
 //    public void cargarDatos() throws SQLException 
@@ -78,7 +80,7 @@ public class BalanceGfrm extends javax.swing.JPanel {
         fecha2 = new com.toedter.calendar.JDateChooser();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnExport = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -102,11 +104,11 @@ public class BalanceGfrm extends javax.swing.JPanel {
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton2.setText("Imprimir");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnExport.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnExport.setText("Exportar Excel");
+        btnExport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnExportActionPerformed(evt);
             }
         });
 
@@ -152,7 +154,15 @@ public class BalanceGfrm extends javax.swing.JPanel {
             new String [] {
                 "Codigo", "Cuenta", "Debe", "Haber", "Debe", "Haber"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -171,7 +181,7 @@ public class BalanceGfrm extends javax.swing.JPanel {
                         .addGap(79, 79, 79)
                         .addComponent(jButton1)
                         .addGap(28, 28, 28)
-                        .addComponent(jButton2))
+                        .addComponent(btnExport))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(133, 133, 133)))
@@ -192,7 +202,7 @@ public class BalanceGfrm extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton1)
-                        .addComponent(jButton2))
+                        .addComponent(btnExport))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(fecha2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel2)
@@ -254,7 +264,7 @@ public class BalanceGfrm extends javax.swing.JPanel {
                             tmovimientoH = tmovimientoH + movimientoH;
                             saldoFD = movimientoD - movimientoH;
                             tsaldoFD = tsaldoFD + saldoFD;
-                            datos1 = (codigoB + "," + cuenta + "," + debe + "," + haber + "," + saldoFD + "," + "----");
+                            datos1 = (codigoB + "," + cuenta + "," + debe + "," + haber + "," + saldoFD + "," + " ");
                             lista.add(datos1);
 
                         } else {
@@ -264,7 +274,7 @@ public class BalanceGfrm extends javax.swing.JPanel {
                             tmovimientoH = tmovimientoH + movimientoH;
                             saldoFH = movimientoH - movimientoD;
                             tsaldoFH = tsaldoFH + saldoFH;
-                            datos1 = (codigoB + "," + cuenta + "," + debe + "," + haber + "," + "-----" + "," + saldoFH);
+                            datos1 = (codigoB + "," + cuenta + "," + debe + "," + haber + "," + " " + "," + saldoFH);
                             lista.add(datos1);
 
                         }
@@ -283,7 +293,7 @@ public class BalanceGfrm extends javax.swing.JPanel {
                 tmovimientoH = tmovimientoH + movimientoH;
                 saldoFD = movimientoD - movimientoH;
                 tsaldoFD = tsaldoFD + saldoFD;
-                datos1 = (codigoB + "," + cuenta + "," + debe + "," + haber + "," + saldoFD + "," + "----");
+                datos1 = (codigoB + "," + cuenta + "," + debe + "," + haber + "," + saldoFD + "," + " ");
                 lista.add(datos1);
 
             } else {
@@ -293,15 +303,24 @@ public class BalanceGfrm extends javax.swing.JPanel {
                 tmovimientoH = tmovimientoH + movimientoH;
                 saldoFH = movimientoH - movimientoD;
                 tsaldoFH = tsaldoFH + saldoFH;
-                datos1 = (codigoB + "," + cuenta + "," + debe + "," + haber + "," + "-----" + "," + saldoFH);
+                datos1 = (codigoB + "," + cuenta + "," + debe + "," + haber + "," + " " + "," + saldoFH);
                 lista.add(datos1);
 
             }
-            datos1 = ("" + "," + "" + "," + tmovimientoD + "," + tmovimientoH + "," + tsaldoFD + "," + tsaldoFH);
+            datos1 = ("Total" + "," + "" + "," + tmovimientoD + "," + tmovimientoH + "," + tsaldoFD + "," + tsaldoFH);
             lista.add(datos1);
+              btnExport.setEnabled(true);
 
+             Dashboard ds = new Dashboard();
+             
+             String[] columnNames = {"Empresa",ds.empresa, " Desde",filtrof1, " hasta", filtrof2};
+             jtModelo.setColumnIdentifiers(columnNames);
+             jtModelo.addRow(new Object[]{"","Concepto","Movimientos","","Saldos",""});
+             jtModelo.addRow(new Object[]{"Codigo","Cuenta","Debe","Haber","Debe","Haber"});
             for (int i = 0; i <= lista.size(); i++) {
                 datosN = lista.get(i).split(",");
+
+                
                 jtModelo.addRow(datosN);
 
             }
@@ -317,6 +336,7 @@ public class BalanceGfrm extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public void exportarExcel(JTable t) throws IOException {
+        Dashboard ds = new Dashboard();
         JFileChooser chooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos de excel", "xls");
         chooser.setFileFilter(filter);
@@ -332,8 +352,8 @@ public class BalanceGfrm extends javax.swing.JPanel {
                 archivoXLS.createNewFile();
                 Workbook libro = new HSSFWorkbook();
                 FileOutputStream archivo = new FileOutputStream(archivoXLS);
-                Sheet hoja = libro.createSheet("Balance General");
-                hoja.setDisplayGridlines(false);
+                Sheet hoja = libro.createSheet("Balance General "+ds.empresa);
+                hoja.setDisplayGridlines(true);
                 for (int f = 0; f < t.getRowCount(); f++) {
                     Row fila = hoja.createRow(f);
                     for (int c = 0; c < t.getColumnCount(); c++) {
@@ -366,7 +386,7 @@ public class BalanceGfrm extends javax.swing.JPanel {
             }
         }
     }
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportActionPerformed
         // TODO add your handling code here:
         try {
 
@@ -374,7 +394,7 @@ public class BalanceGfrm extends javax.swing.JPanel {
         } catch (IOException ex) {
             System.out.println("Error: " + ex);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnExportActionPerformed
 
     public void eliminar() {
         jtModelo.getDataVector().removeAllElements();
@@ -384,10 +404,10 @@ public class BalanceGfrm extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnExport;
     private com.toedter.calendar.JDateChooser fecha1;
     private com.toedter.calendar.JDateChooser fecha2;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -54,6 +54,8 @@ public class Mayori extends javax.swing.JPanel {
         initComponents();
         jtModelo = (DefaultTableModel) this.jTable1.getModel(); 
         cn = new AsientoModel();
+        btnExpor.setEnabled(false);
+
 //        this.cargarDatos();   
     }
 //    public void cargarDatos() throws SQLException 
@@ -82,7 +84,7 @@ public class Mayori extends javax.swing.JPanel {
         fecha2 = new com.toedter.calendar.JDateChooser();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnExpor = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -95,9 +97,17 @@ public class Mayori extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Cuenta", "debe", "haber", "Fecha"
+                "Cuenta", "Debe", "Haber", "Fecha"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -111,11 +121,11 @@ public class Mayori extends javax.swing.JPanel {
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton2.setText("Imprimir");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnExpor.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnExpor.setText("Exportar Excel");
+        btnExpor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnExporActionPerformed(evt);
             }
         });
 
@@ -124,7 +134,7 @@ public class Mayori extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(137, Short.MAX_VALUE)
+                .addContainerGap(97, Short.MAX_VALUE)
                 .addComponent(fecha1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,7 +146,7 @@ public class Mayori extends javax.swing.JPanel {
                         .addGap(55, 55, 55)
                         .addComponent(jButton1)
                         .addGap(28, 28, 28)
-                        .addComponent(jButton2)))
+                        .addComponent(btnExpor)))
                 .addGap(210, 210, 210))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -154,7 +164,7 @@ public class Mayori extends javax.swing.JPanel {
                         .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton1)
-                            .addComponent(jButton2))
+                            .addComponent(btnExpor))
                         .addComponent(fecha2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(fecha1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
@@ -165,6 +175,7 @@ public class Mayori extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+
        this.eliminar();
         Conector cc = new Conector();
         Connection cn = cc.conectar();
@@ -195,16 +206,16 @@ public class Mayori extends javax.swing.JPanel {
                 fecha = rs.getString("fecha");
                 if(Bandera==0){
                     cuenta=rs.getString("nombrec");
-                    datos1 = (cuenta+","+""+","+""+","+"");
+                    datos1 = (cuenta+","+" "+","+" "+","+" ");
                     lista.add(datos1);
-                   cuenta="    --";
+                   cuenta="    ";
                    Bandera++;
                     movimientoD=movimientoD+rs.getInt("debe");
                     movimientoH=movimientoH+rs.getInt("haber");
                 }else{
                     if(codigoA==codigoB){
 //                        System.out.println("La cuenta"+codigoA+"es igual a la cuenta"+codigoB);
-                        cuenta="    --";
+                        cuenta="    ";
                         movimientoD=movimientoD+rs.getInt("debe");
                         movimientoH=movimientoH+rs.getInt("haber");
                     }
@@ -212,28 +223,28 @@ public class Mayori extends javax.swing.JPanel {
                         cuenta="    Total";
                         debe=Integer.toString(movimientoD);
                         haber=Integer.toString(movimientoH);
-                        datos1 = (cuenta+","+debe+","+haber+","+"");
+                        datos1 = (cuenta+","+debe+","+haber+","+" ");
                         lista.add(datos1);
                         if(movimientoD>movimientoH){
                             saldoF=movimientoD-movimientoH;
                             debe=Integer.toString(saldoF);
-                            datos1 = ("    Saldo"+","+debe+","+""+","+"");
+                            datos1 = ("    Saldo"+","+debe+","+" "+","+" ");
                             lista.add(datos1);
 
                         }else{
                             saldoF=movimientoH-movimientoD;
                             haber=Integer.toString(saldoF);
-                            datos1 = ("    Saldo"+","+""+","+haber+","+"");
+                            datos1 = ("    Saldo"+","+" "+","+haber+","+" ");
                             lista.add(datos1);
 
                         }
                         cuenta=rs.getString("nombrec");
-                        datos1 = (cuenta+","+""+","+""+","+"");
+                        datos1 = (cuenta+","+""+","+" "+","+" ");
                         lista.add(datos1);
                         debe = Integer.toString(rs.getInt("debe"));
                         haber = Integer.toString(rs.getInt("haber"));
 //                        System.out.println("La cuenta"+codigoA+"es diferente a la cuenta"+codigoB);
-                        cuenta="    --";
+                        cuenta="   ";
                         movimientoD=0;
                         movimientoH=0;
                         movimientoD=movimientoD+rs.getInt("debe");
@@ -250,33 +261,39 @@ public class Mayori extends javax.swing.JPanel {
                         cuenta="    Total";
                         debe=Integer.toString(movimientoD);
                         haber=Integer.toString(movimientoH);
-                        datos1 = (cuenta+","+debe+","+haber+","+"");
+                        datos1 = (cuenta+","+debe+","+haber+","+" ");
                         lista.add(datos1);
                         if(movimientoD>movimientoH){
                             saldoF=movimientoD-movimientoH;
                             debe=Integer.toString(saldoF);
-                            datos1 = ("    Saldo"+","+debe+","+""+","+"");
+                            datos1 = ("    Saldo"+","+debe+","+" "+","+" ");
                             lista.add(datos1);
 
                         }else{
                             saldoF=movimientoH-movimientoD;
                             haber=Integer.toString(saldoF);
-                            datos1 = ("    Saldo"+","+""+","+haber+","+"");
+                            datos1 = ("    Saldo"+","+" "+","+haber+","+" ");
                             lista.add(datos1);
 
                         }
-           
+              
+              btnExpor.setEnabled(true);
+
+              Dashboard ds = new Dashboard();          
+             String[] columnNames = {"Empresa"+ds.empresa," Desde"+filtrof1," hasta"+filtrof2," "};
+             jtModelo.setColumnIdentifiers(columnNames);
+              jtModelo.addRow(new Object[]{"Cuenta","Debe","Haber","Fecha"});
             for (int i = 0; i <=lista.size(); i++) {
                  datosN = lista.get(i).split(",");
                 jtModelo.addRow(datosN);
 
             }  
      
-            
+
             jTable1.setModel(jtModelo);
 
             
-       }catch( Exception e ) {
+       }catch( SQLException e ) {
 
           System.err.println( e.getClass().getName() + ": " + e.getMessage() );
         }
@@ -285,6 +302,7 @@ public class Mayori extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public void exportarExcel(JTable t) throws IOException {
+        Dashboard ds = new Dashboard();
         JFileChooser chooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos de excel", "xls");
         chooser.setFileFilter(filter);
@@ -300,8 +318,8 @@ public class Mayori extends javax.swing.JPanel {
                 archivoXLS.createNewFile();
                 Workbook libro = new HSSFWorkbook();
                 FileOutputStream archivo = new FileOutputStream(archivoXLS);
-                Sheet hoja = libro.createSheet("Mayorizacion.");
-                hoja.setDisplayGridlines(false);
+                Sheet hoja = libro.createSheet("Mayorizacion "+ds.empresa);
+                hoja.setDisplayGridlines(true);
                 for (int f = 0; f < t.getRowCount(); f++) {
                     Row fila = hoja.createRow(f);
                     for (int c = 0; c < t.getColumnCount(); c++) {
@@ -334,7 +352,7 @@ public class Mayori extends javax.swing.JPanel {
             }
         }
     }
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnExporActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExporActionPerformed
         // TODO add your handling code here:
         try {
             
@@ -342,7 +360,7 @@ public class Mayori extends javax.swing.JPanel {
         } catch (IOException ex) {
             System.out.println("Error: " + ex);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnExporActionPerformed
 
       public void eliminar(){
            jtModelo.getDataVector().removeAllElements(); 
@@ -355,10 +373,10 @@ public class Mayori extends javax.swing.JPanel {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnExpor;
     private com.toedter.calendar.JDateChooser fecha1;
     private com.toedter.calendar.JDateChooser fecha2;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

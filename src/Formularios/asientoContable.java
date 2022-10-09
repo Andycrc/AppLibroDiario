@@ -65,7 +65,6 @@ public class asientoContable extends javax.swing.JPanel {
         jtModelo1 = (DefaultTableModel) this.tasiento.getModel();   
         this.cargarParametros();
         this.cargarT2();
-
         jtdebe.setEnabled(false);
         jthaber.setEnabled(false);
 
@@ -146,6 +145,8 @@ public class asientoContable extends javax.swing.JPanel {
         jthaber = new javax.swing.JTextField();
         btndebe = new javax.swing.JRadioButton();
         btnhaber = new javax.swing.JRadioButton();
+        jTcomentario = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(900, 564));
@@ -156,9 +157,17 @@ public class asientoContable extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Codigo Cuenta", "nombre", "Debe", "Heber", "fecha", "eliminar"
+                "Codigo Cuenta", "Nombre Cuenta", "Debe", "Heber", "Fecha", "Eliminar"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, true, true, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tasiento.setCellSelectionEnabled(true);
         tasiento.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         tasiento.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -181,9 +190,17 @@ public class asientoContable extends javax.swing.JPanel {
 
             },
             new String [] {
-                "codigo", "nombre"
+                "Codigo", "Nombre"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tcodigos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tcodigosMouseClicked(evt);
@@ -307,6 +324,8 @@ public class asientoContable extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        jLabel1.setText("Comentario:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -321,24 +340,25 @@ public class asientoContable extends javax.swing.JPanel {
                 .addContainerGap(31, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 810, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(45, 45, 45))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(35, 35, 35))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(14, 14, 14)
-                                .addComponent(jButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTcomentario, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1))
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton1)))
+                        .addGap(35, 35, 35)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(pcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(pnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 502, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(32, 32, 32))))
+                        .addGap(32, 32, 32))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 810, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(45, 45, 45))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -347,16 +367,18 @@ public class asientoContable extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 17, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(pcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(pnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(pnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTcomentario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 17, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
@@ -443,8 +465,9 @@ public class asientoContable extends javax.swing.JPanel {
         if(cont<1){
                 SimpleDateFormat DateFor = new SimpleDateFormat("yyyy-MM-dd");
                 vfecha = DateFor.format(fechaA.getDate());
-                System.out.println(""+vfecha);
                 fechaA.setEnabled(false);
+                
+                jTcomentario.setEnabled(false);
         
         }
         double vvdebe,vvhaber;
@@ -455,8 +478,11 @@ public class asientoContable extends javax.swing.JPanel {
 
 
      
-        if(vcodigo.isEmpty()||vnombre.isEmpty()||vfecha.isEmpty()){
+        if(vcodigo.isEmpty()||vnombre.isEmpty()||vfecha.isEmpty()||(jTcomentario.getText().trim().length()==0) ){
                         JOptionPane.showMessageDialog(null, "Llene todos los datos", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                        jTcomentario.setEnabled(true);
+                        fechaA.setEnabled(true);
+
         }else{
           if(vvdebe<0 || vvhaber<0){
               System.out.println("entre a numero nega");
@@ -469,6 +495,7 @@ public class asientoContable extends javax.swing.JPanel {
                 vcodigo,vnombre,vdebe,vhaber,vfecha,btn2
             });
             this.limpiarjtex();       
+            cont++;
           
           }
 
@@ -487,11 +514,11 @@ public class asientoContable extends javax.swing.JPanel {
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         // TODO add your handling code here:
         cont=0;
-        fechaA.setEnabled(true);
-        fechaA.setCalendar(null);
+        String comentario = jTcomentario.getText();
+
             Conector cc = new Conector();
             Connection cn = cc.conectar();
-            String consult = "insert into asiento(debe,haber,codigo,nombrec,nasiento,fecha) values(?,?,?,?,?,?)";
+            String consult = "insert into asiento(debe,haber,codigo,nombrec,nasiento,fecha,comentario) values(?,?,?,?,?,?,?)";
             String qry = "SELECT nasiento FROM asiento ORDER BY  nasiento DESC LIMIT 1";
         double sumH=0,sumD=0;
 
@@ -501,72 +528,77 @@ public class asientoContable extends javax.swing.JPanel {
 
         }
         if(sumH==sumD){
-            //        try {
-//            Statement stmt = cn.createStatement();
-//             ResultSet rs  = stmt.executeQuery(qry);
-//             System.out.println("aqui");
-//             int numecoAsiento= rs.getInt("nasiento");             
-//             numecoAsiento=numecoAsiento+1;
-//        
-//            if (tasiento.getRowCount() == 0) {
-//               JOptionPane.showMessageDialog(null, "No Existen Datos", "Advertencia", JOptionPane.WARNING_MESSAGE);
-//            } else {                
-//                for (int i = 0; i < tasiento.getRowCount(); i++) {
-//                    vcodigo=(String) tasiento.getValueAt(i, 0);
-//                    vnombre=(String) tasiento.getValueAt(i, 1);
-//                    vdebe=(String) tasiento.getValueAt(i, 2);
-//                    vhaber=(String) tasiento.getValueAt(i, 3);
-//                    vfecha=(String) tasiento.getValueAt(i, 4);
-//                    //vnumeroAsiento = (String) tasiento.getValueAt(i, 5);
-//
-//                  PreparedStatement ps = cn.prepareStatement(consult);
-//
-//                  if(vhaber.isEmpty()){
-//                    System.out.println("entro en debe");
-//                    ps.setDouble(1, Double.parseDouble(vdebe));
-//                    ps.setDouble(2, 0.0);
-//                    ps.setInt(3, Integer.parseInt(vcodigo));
-//                    ps.setString(4, vnombre);
-//                    ps.setInt(5, numecoAsiento);
-//                    ps.setString(6,vfecha);
-//
-//
-//
-//                  }
-//                  else if(vdebe.isEmpty()){
-//                        System.out.println("entro en haber");
-//
-//                        ps.setDouble(1, 0.0);
-//                        ps.setDouble(2, Double.parseDouble(vhaber));
-//                        ps.setInt(3, Integer.parseInt(vcodigo));
-//                        ps.setString(4, vnombre);
-//                        ps.setInt(5, numecoAsiento);
-//                        ps.setString(6,vfecha);
-//
-//                  }
-//                  else{
-//                      System.out.println("error no entro");
-//                  }
-//                  ps.executeUpdate();
-//
-//
-//                }
-//            JOptionPane.showMessageDialog(null,"Asiento Guardado con exito.","Con exito",JOptionPane.INFORMATION_MESSAGE);
-//  
-//             
-//           }
-//
-//        } catch ( Exception e ) {
-//
-//          System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-//        }
-//
+         try {
+            Statement stmt = cn.createStatement();
+             ResultSet rs  = stmt.executeQuery(qry);
+             int numecoAsiento= rs.getInt("nasiento");             
+             numecoAsiento=numecoAsiento+1;
+        
+            if (tasiento.getRowCount() == 0) {
+               JOptionPane.showMessageDialog(null, "No Existen Datos", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            } else {                
+                for (int i = 0; i < tasiento.getRowCount(); i++) {
+                    vcodigo=(String) tasiento.getValueAt(i, 0);
+                    vnombre=(String) tasiento.getValueAt(i, 1);
+                    vdebe=(String) tasiento.getValueAt(i, 2);
+                    vhaber=(String) tasiento.getValueAt(i, 3);
+                    vfecha=(String) tasiento.getValueAt(i, 4);
+                    //vnumeroAsiento = (String) tasiento.getValueAt(i, 5);
+
+                  PreparedStatement ps = cn.prepareStatement(consult);
+
+                  if("0".equals(vhaber)){
+                    System.out.println("entro en debe");
+                    ps.setDouble(1, Double.parseDouble(vdebe));
+                    ps.setDouble(2, 0.0);
+                    ps.setInt(3, Integer.parseInt(vcodigo));
+                    ps.setString(4, vnombre);
+                    ps.setInt(5, numecoAsiento);
+                    ps.setString(6,vfecha);
+                    ps.setString(7, jTcomentario.getText());
+
+
+
+                  }
+                  else if("0".equals(vdebe)){
+                        System.out.println("entro en haber");
+
+                        ps.setDouble(1, 0.0);
+                        ps.setDouble(2, Double.parseDouble(vhaber));
+                        ps.setInt(3, Integer.parseInt(vcodigo));
+                        ps.setString(4, vnombre);
+                        ps.setInt(5, numecoAsiento);
+                        ps.setString(6,vfecha);
+                        ps.setString(7, jTcomentario.getText());
+
+                  }
+                  else{
+                      System.out.println("error no entro");
+                  }
+                  ps.executeUpdate();
+
+
+                }
+            JOptionPane.showMessageDialog(null,"Asiento Guardado con exito.","Con exito",JOptionPane.INFORMATION_MESSAGE);
+  
+             
+           }
+
+        } catch ( Exception e ) {
+
+          System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+        }
+        
+        fechaA.setEnabled(true);
+        fechaA.setCalendar(null);
+        jTcomentario.setEnabled(true);
+
         this.limpiarjtex();
         this.eliminar();
         cc.close();
             
         }else{
-           JOptionPane.showMessageDialog(null, "Los datos no son iguales", "Advertencia", JOptionPane.WARNING_MESSAGE);
+           JOptionPane.showMessageDialog(null, "La suma en debe y el haber no cuadran.", "Advertencia", JOptionPane.WARNING_MESSAGE);
 
         }
 
@@ -618,11 +650,13 @@ public class asientoContable extends javax.swing.JPanel {
     private com.toedter.calendar.JDateChooser fechaA;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextField jTcomentario;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JTextField jtcodigoC;
     private javax.swing.JTextField jtdebe;

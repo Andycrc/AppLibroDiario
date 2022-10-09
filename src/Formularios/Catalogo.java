@@ -149,10 +149,8 @@ public class Catalogo extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         try{
-                String arch = "src\\Fichero\\Catalogo.txt";
-            File path = new File (arch);
+            File path = new File ("src\\Fichero\\Catalogo.txt");
             Desktop.getDesktop().open(path);
-
             
         }catch(Exception e) {
             System.out.println(e.getMessage());
