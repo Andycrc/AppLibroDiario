@@ -5,35 +5,24 @@
  */
 package Formularios;
 
-import Entidades.AsientoTB;
 import Entidades.Conector;
 import Entidades.Dcatalogo;
-import Entidades.Render;
-import static Formularios.Dashboard.content;
 import static Formularios.mainInicio.contenedor;
 import Models.AsientoModel;
 import java.awt.BorderLayout;
 import java.awt.Desktop;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import javax.swing.JButton;
-//import javafx.scene.control.Cell;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.RowFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -43,45 +32,38 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
-
 /**
  *
  * @author Andy
  */
-public class AsientosConatables extends javax.swing.JPanel {
+public final class AsientosConatables extends javax.swing.JPanel {
 
     Dcatalogo archivo = new Dcatalogo();
     DefaultTableModel jtModelo;
     ArrayList<String> datos;
-    TableRowSorter trs ;
+    TableRowSorter trs;
     AsientoModel cn;
 
     public AsientosConatables() throws SQLException {
         initComponents();
 
-        jtModelo = (DefaultTableModel) this.tablaAs.getModel(); 
+        jtModelo = (DefaultTableModel) this.tablaAs.getModel();
         cn = new AsientoModel();
-        this.cargarDatos();   
+        this.cargarDatos();
         this.brnExport.setEnabled(false);
     }
-    
-    public void imprimripdf(){
-       
+
+    public void imprimripdf() {
+
     }
-    
-    
-    
-    public void cargarDatos() throws SQLException 
-    {
-    
+
+    public void cargarDatos() throws SQLException {
+
         jtModelo = cn.obtenerDatos();
         this.tablaAs.setModel(jtModelo);
         this.tablaAs.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
-        //this.jTable1.setFillsViewportHeight(true);
-        
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -98,7 +80,7 @@ public class AsientosConatables extends javax.swing.JPanel {
         fecha1 = new com.toedter.calendar.JDateChooser();
         fecha2 = new com.toedter.calendar.JDateChooser();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btn_filtrar = new javax.swing.JButton();
         brnExport = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
@@ -126,18 +108,19 @@ public class AsientosConatables extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tablaAs);
 
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel2.setText("Hasta");
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton1.setText("Filtrar");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btn_filtrar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btn_filtrar.setText("Filtrar");
+        btn_filtrar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                btn_filtrarMouseClicked(evt);
             }
         });
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btn_filtrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_filtrarActionPerformed(evt);
             }
         });
 
@@ -168,7 +151,7 @@ public class AsientosConatables extends javax.swing.JPanel {
                         .addComponent(jScrollPane1)
                         .addGap(23, 23, 23))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 41, Short.MAX_VALUE)
+                        .addGap(0, 36, Short.MAX_VALUE)
                         .addComponent(fecha1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(53, 53, 53)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,7 +161,7 @@ public class AsientosConatables extends javax.swing.JPanel {
                                 .addGap(52, 52, 52)
                                 .addComponent(fecha2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(55, 55, 55)
-                                .addComponent(jButton1)
+                                .addComponent(btn_filtrar)
                                 .addGap(28, 28, 28)
                                 .addComponent(brnExport)))
                         .addGap(210, 210, 210))))
@@ -198,7 +181,7 @@ public class AsientosConatables extends javax.swing.JPanel {
                     .addComponent(fecha2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton1)
+                        .addComponent(btn_filtrar)
                         .addComponent(brnExport)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -213,90 +196,78 @@ public class AsientosConatables extends javax.swing.JPanel {
         System.out.println("hola");
         asientoContable newasiento = new asientoContable();
         newasiento.setSize(900, 540);
-        newasiento.setLocation(0,0);
+        newasiento.setLocation(0, 0);
         contenedor.removeAll();
         contenedor.add(newasiento, BorderLayout.CENTER);
         contenedor.revalidate();
         contenedor.repaint();
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-       this.eliminar();
-        Conector cc = new Conector();
-        Connection cn = cc.conectar();
-        
-        SimpleDateFormat DateFor = new SimpleDateFormat("yyyy-MM-dd");
-        String filtrof1 = DateFor.format(fecha1.getDate());
-        String filtrof2 = DateFor.format(fecha2.getDate());
-        
-        
-        String consultafiltra="SELECT nasiento,codigo,nombrec,debe,haber,fecha,comentario FROM asiento WHERE fecha BETWEEN '"+filtrof1+"' AND '"+filtrof2+"'";
-        System.out.println("consulta a BD: "+consultafiltra);
-        ArrayList<String> lista = new ArrayList<>();
-       try{ 
-             Statement stmt = cn.createStatement();
-             ResultSet rs  = stmt.executeQuery(consultafiltra);
-             //System.out.println("aqui llegue");
-             String[] datosN = new String[4]; 
-             while(rs.next()){
-//                    String vid=(String)(rs.getInt("id"));
-//                    String vcodigo= (String)(rs.getInt("codigo"));
-                    
-                String datos1,nasiento,codigo,cuenta,debe,haber,fecha,comentario; 
-                nasiento = Integer.toString(rs.getInt("nasiento"));
-                codigo=Integer.toString(rs.getInt("codigo"));
-                cuenta = rs.getString("nombrec");
-                debe = Integer.toString(rs.getInt("debe"));
-                haber = Integer.toString(rs.getInt("haber"));
-                fecha = rs.getString("fecha");
-                comentario = rs.getString("comentario");
-                
-                datos1 = (nasiento+","+codigo+","+cuenta+","+comentario+","+debe+","+haber+","+ fecha);
-                lista.add(datos1);
-//                
-//                datos2 = (nasiento+codigo+cuenta+debe+haber+fecha);
-//                System.out.println("ListaPDF "+datos2);//DE DATOS1 SE PUEDE OBTENER LOS VALORES
-//                listaPDF.add(datos2);
+    private void btn_filtrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_filtrarActionPerformed
+        if (fecha1.getDate() == null || fecha2.getDate() == null) {
+            JOptionPane.showMessageDialog(null, "Por favor verifique su fecha.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        } else {
+            this.eliminar();
+            Conector cc = new Conector();
+            Connection cn = cc.conectar();
+
+            SimpleDateFormat DateFor = new SimpleDateFormat("yyyy-MM-dd");
+            String filtrof1 = DateFor.format(fecha1.getDate());
+            String filtrof2 = DateFor.format(fecha2.getDate());
+
+            String consultafiltra = "SELECT nasiento,codigo,nombrec,debe,haber,fecha,comentario FROM asiento WHERE fecha BETWEEN '" + filtrof1 + "' AND '" + filtrof2 + "'";
+            System.out.println("consulta a BD: " + consultafiltra);
+            ArrayList<String> lista = new ArrayList<>();
+            try {
+                Statement stmt = cn.createStatement();
+                ResultSet rs = stmt.executeQuery(consultafiltra);
+                String[] datosN = new String[40];
+                while (rs.next()) {
+                    String datos1, nasiento, codigo, cuenta, debe, haber, fecha, comentario;
+                    nasiento = Integer.toString(rs.getInt("nasiento"));
+                    codigo = Integer.toString(rs.getInt("codigo"));
+                    cuenta = rs.getString("nombrec");
+                    debe = Integer.toString(rs.getInt("debe"));
+                    haber = Integer.toString(rs.getInt("haber"));
+                    fecha = rs.getString("fecha");
+                    comentario = rs.getString("comentario");
+
+                    datos1 = (nasiento + "," + codigo + "," + cuenta + "," + comentario + "," + debe + "," + haber + "," + fecha);
+                    lista.add(datos1);
                 }
-            
-                          brnExport.setEnabled(true);
 
-              Dashboard ds = new Dashboard();          
-             String[] columnNames = {"Empresa "+ds.empresa," Desde"+filtrof1," hasta"+filtrof2," "," "," "," "};
-             jtModelo.setColumnIdentifiers(columnNames);
-              jtModelo.addRow(new Object[]{"N°Asiento","Codigo","Cuenta","Comentario","Debe","Haber","Fecha"});
-            for (int i = 0; i <=lista.size(); i++) {//obtine la cantidad de filas
-                 datosN = lista.get(i).split(",");
-                 //System.out.println(""+datosN);
-                jtModelo.addRow(datosN);
-                
-            }  
+                brnExport.setEnabled(true);
 
-            tablaAs.setModel(jtModelo);
-//            jtModelo.setColumnCount(0);
-//            jtModelo.setRowCount(0);
-            
-       }catch( SQLException e ) {
+                //Dashboard ds = new Dashboard();
+                String[] columnNames = {"Empresa " + Dashboard.empresa, " Desde" + filtrof1, " hasta" + filtrof2, " ", " ", " ", " "};
+                jtModelo.setColumnIdentifiers(columnNames);
+                jtModelo.addRow(new Object[]{"N°Asiento", "Codigo", "Cuenta", "Comentario", "Debe", "Haber", "Fecha"});
 
-          System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+                for (int i = 0; i <= lista.size(); i++) {//obtine la cantidad de filas
+                    datosN = lista.get(i).split(",");
+                    jtModelo.addRow(datosN);
+
+                }
+
+                tablaAs.setModel(jtModelo);
+            } catch (SQLException e) {
+
+                System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            }
+
+            cc.close();
         }
-       
-        cc.close();
-    }//GEN-LAST:event_jButton1ActionPerformed
-  
-        
-    
-    
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        // TODO add your handling code here:
-//        this.brnExport.setEnabled(true);
-    }//GEN-LAST:event_jButton1MouseClicked
+
+    }//GEN-LAST:event_btn_filtrarActionPerformed
+
+
+    private void btn_filtrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_filtrarMouseClicked
+    }//GEN-LAST:event_btn_filtrarMouseClicked
 
     public void exportarExcel(JTable t) throws IOException {
         Dashboard ds = new Dashboard();
         JFileChooser chooser = new JFileChooser();
-        
+
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos de excel", "xls");
         chooser.setFileFilter(filter);
         chooser.setDialogTitle("Guardar archivo");
@@ -311,7 +282,7 @@ public class AsientosConatables extends javax.swing.JPanel {
                 archivoXLS.createNewFile();
                 Workbook libro = new HSSFWorkbook();
                 FileOutputStream archivo = new FileOutputStream(archivoXLS);
-                Sheet hoja = libro.createSheet("Asientos Contables "+ds.empresa);
+                Sheet hoja = libro.createSheet("Asientos Contables " + ds.empresa);
                 hoja.setDisplayGridlines(true);
                 for (int f = 0; f < t.getRowCount(); f++) {
                     Row fila = hoja.createRow(f);
@@ -345,28 +316,28 @@ public class AsientosConatables extends javax.swing.JPanel {
             }
         }
     }
-    
-    
+
+
     private void brnExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brnExportActionPerformed
- try {
+        try {
             exportarExcel(tablaAs);
         } catch (IOException ex) {
             System.out.println("Error: " + ex);
         }
-        
+
     }//GEN-LAST:event_brnExportActionPerformed
 
-      public void eliminar(){
-           jtModelo.getDataVector().removeAllElements(); 
-           jtModelo.fireTableDataChanged();
-       }
-    
+    public void eliminar() {
+        jtModelo.getDataVector().removeAllElements();
+        jtModelo.fireTableDataChanged();
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton brnExport;
+    private javax.swing.JButton btn_filtrar;
     private com.toedter.calendar.JDateChooser fecha1;
     private com.toedter.calendar.JDateChooser fecha2;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

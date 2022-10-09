@@ -230,7 +230,7 @@ public class mainInicio extends javax.swing.JFrame {
 
         app_name.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         app_name.setForeground(new java.awt.Color(255, 255, 255));
-        app_name.setText("Libro Diario");
+        app_name.setText("Ciclo Contable");
         Menu.add(app_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, -1, -1));
 
         jSeparator1.setPreferredSize(new java.awt.Dimension(50, 5));

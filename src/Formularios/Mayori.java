@@ -7,13 +7,8 @@ package Formularios;
 
 import Entidades.Conector;
 import Entidades.Dcatalogo;
-//import static Formularios.Dashboard.content;
 import Models.AsientoModel;
 import java.awt.Desktop;
-//import java.awt.BorderLayout;
-//import java.awt.Desktop;
-//import java.awt.event.KeyAdapter;
-//import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -24,12 +19,11 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
-//import javax.swing.RowFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
-//import sun.awt.image.ByteBandedRaster;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -175,8 +169,10 @@ public class Mayori extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-
-       this.eliminar();
+        if (fecha1.getDate() == null || fecha2.getDate() == null) {
+            JOptionPane.showMessageDialog(null, "Por favor verifique su fecha.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        } else {
+            this.eliminar();
         Conector cc = new Conector();
         Connection cn = cc.conectar();
         SimpleDateFormat DateFor = new SimpleDateFormat("yyyy-MM-dd");
@@ -299,6 +295,9 @@ public class Mayori extends javax.swing.JPanel {
         }
        
         cc.close();
+        }
+
+       
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public void exportarExcel(JTable t) throws IOException {
