@@ -47,7 +47,7 @@ public class AsientoModel {
                  "debe, "+
                  "haber, "+
                  "fecha "+
-                 "from asiento ";            
+                 "from asiento where id != 0";            
 //                 "where ctcodigo_cuenta = ";
             
             Connection conexion = this.ObjConexion.getConexion();
