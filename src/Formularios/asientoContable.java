@@ -8,30 +8,22 @@ package Formularios;
 import Entidades.Conector;
 import Entidades.Dcatalogo;
 import Entidades.Render;
-import static Formularios.Dashboard.content;
 import static Formularios.mainInicio.contenedor;
-import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
-import static com.sun.jmx.remote.internal.IIOPHelper.connect;
 import java.awt.BorderLayout;
 import java.awt.Point;
-
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static javax.management.remote.JMXConnectorFactory.connect;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
@@ -44,77 +36,93 @@ import javax.swing.table.TableRowSorter;
  *
  * @author Eterna
  */
-public class asientoContable extends javax.swing.JPanel {
-      DefaultTableModel jtModelo;
-      DefaultTableModel jtModelo1;
-      Dcatalogo archivo = new Dcatalogo();
-      ArrayList<String> datos;
-      TableRowSorter trs ;
-      String vcodigo,vnombre,vdebe,vhaber,vfecha,vnumeroAsiento;
-      String qry="";
-      int cont=0;
-      
+public final class asientoContable extends javax.swing.JPanel {
 
+    DefaultTableModel jtModelo;
+    DefaultTableModel jtModelo1;
+    Dcatalogo archivo = new Dcatalogo();
+    ArrayList<String> datos;
+    TableRowSorter trs;
+    String vcodigo, vnombre, vdebe, vhaber, vfecha, vnumeroAsiento;
+    String qry = "";
+    int cont = 0;
 
     /**
      * Creates new form asientoContable
      */
     public asientoContable() {
         initComponents();
-        jtModelo = (DefaultTableModel) this.tcodigos.getModel();   
-        jtModelo1 = (DefaultTableModel) this.tasiento.getModel();   
+        jtModelo = (DefaultTableModel) this.tcodigos.getModel();
+        jtModelo1 = (DefaultTableModel) this.tasiento.getModel();
         this.cargarParametros();
         this.cargarT2();
-        jtdebe.setEnabled(false);
-        jthaber.setEnabled(false);
-
-
+        textdebe.setEnabled(false);
+        textHaber.setEnabled(false);
+          debehaber();
+    }
+    
+    public void debehaber(){
+        if (btnhaber.isSelected() == true) {
+                textHaber.setEnabled(true);
+                textHaber.setText("");
+                textdebe.setText("0");
+                textdebe.setEnabled(false);
+            }
+            if (btndebe.isSelected() == true) {
+                textdebe.setEnabled(true);
+                textdebe.setText("");
+                
+                textHaber.setText("0");
+                textHaber.setEnabled(false);
+            }
     }
     //cargar tabla de catalogo de cuenta
-    public void cargarT2(){
+    public void cargarT2() {
 
-        String[] datosN = new String[2]; 
+        String[] datosN = new String[2];
         datos = archivo.leerDato();
-        for (int i = 0; i < datos.size()-1; i++) {
+        for (int i = 0; i < datos.size() - 1; i++) {
             datosN = datos.get(i).split(",");
             jtModelo.addRow(datosN);
 
-        }  
-    } 
+        }
+    }
+
     //pasar valores de catalogo de cuenta a jtext para el insert
-    public void cargarParametros(){
-        tcodigos.addMouseListener(new MouseAdapter (){
-            public void mousePressed (MouseEvent Mouse_evt){
+    public void cargarParametros() {
+        tcodigos.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent Mouse_evt) {
                 JTable table = (JTable) Mouse_evt.getSource();
-                Point point = Mouse_evt.getPoint ();
+                Point point = Mouse_evt.getPoint();
                 int row = table.rowAtPoint(point);
-                 if(Mouse_evt.getClickCount()==1){
-                     pcodigo.setText (tcodigos.getValueAt(tcodigos.getSelectedRow(),0).toString());
-                     pnombre.setText (tcodigos.getValueAt(tcodigos.getSelectedRow(),1).toString());
-                 
-                 
-                 }
+                if (Mouse_evt.getClickCount() == 1) {
+                    pcodigo.setText(tcodigos.getValueAt(tcodigos.getSelectedRow(), 0).toString());
+                    pnombre.setText(tcodigos.getValueAt(tcodigos.getSelectedRow(), 1).toString());
+
+                }
             }
         });
-     };
+    }
+
+    ;
     //metodo limpar jtext()
-    public void limpiarjtex(){
+    public void limpiarjtex() {
         this.pcodigo.setText("");
         this.pnombre.setText("");
-        this.jtdebe.setText("");
-        this.jthaber.setText("");
+        this.textdebe.setText("");
+        this.textHaber.setText("");
 //        fechaA.setCalendar(null);
     }
+
     //vaciar tabla
-    public void eliminar(){
+    public void eliminar() {
         DefaultTableModel tb = (DefaultTableModel) tasiento.getModel();
-        int a = tasiento.getRowCount()-1;
+        int a = tasiento.getRowCount() - 1;
         for (int i = a; i >= 0; i--) {
-         tb.removeRow(tb.getRowCount()-1);
+            tb.removeRow(tb.getRowCount() - 1);
         }
         //cargaTicket();
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -141,8 +149,8 @@ public class asientoContable extends javax.swing.JPanel {
         jtcodigoC = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         fechaA = new com.toedter.calendar.JDateChooser();
-        jtdebe = new javax.swing.JTextField();
-        jthaber = new javax.swing.JTextField();
+        textdebe = new javax.swing.JTextField();
+        textHaber = new javax.swing.JTextField();
         btndebe = new javax.swing.JRadioButton();
         btnhaber = new javax.swing.JRadioButton();
         jTcomentario = new javax.swing.JTextField();
@@ -252,19 +260,25 @@ public class asientoContable extends javax.swing.JPanel {
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         jLabel5.setText("Fecha:");
 
-        jthaber.addActionListener(new java.awt.event.ActionListener() {
+        textHaber.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jthaberActionPerformed(evt);
+                textHaberActionPerformed(evt);
             }
         });
 
         buttonGroup2.add(btndebe);
         btndebe.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
+        btndebe.setSelected(true);
         btndebe.setText("Debe:");
         btndebe.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btndebe.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btndebeMouseClicked(evt);
+            }
+        });
+        btndebe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btndebeActionPerformed(evt);
             }
         });
 
@@ -296,12 +310,12 @@ public class asientoContable extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jtdebe, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(textdebe, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(66, 66, 66)
                                 .addComponent(jLabel5)
-                                .addGap(45, 47, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jthaber, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(textHaber, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(29, 29, 29)
                                 .addComponent(fechaA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap())
@@ -323,11 +337,11 @@ public class asientoContable extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jtdebe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textdebe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btndebe))
                         .addGap(23, 23, 23)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jthaber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textHaber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnhaber))))
                 .addContainerGap())
         );
@@ -349,7 +363,7 @@ public class asientoContable extends javax.swing.JPanel {
                 .addComponent(jButton2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(31, Short.MAX_VALUE)
+                .addContainerGap(24, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 823, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
@@ -382,7 +396,7 @@ public class asientoContable extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -410,116 +424,112 @@ public class asientoContable extends javax.swing.JPanel {
 
     private void jtcodigoCKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtcodigoCKeyTyped
         // TODO add your handling code here:
-         jtcodigoC.addKeyListener(new KeyAdapter(){
+        jtcodigoC.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent ke) {
-                trs.setRowFilter(RowFilter.regexFilter(jtcodigoC.getText(),1));//To change body of generated methods, choose Tools | Templates.
+                trs.setRowFilter(RowFilter.regexFilter(jtcodigoC.getText(), 1));//To change body of generated methods, choose Tools | Templates.
             }
 
         });
-        
-        trs = new TableRowSorter(jtModelo =  (DefaultTableModel) tcodigos.getModel());
+
+        trs = new TableRowSorter(jtModelo = (DefaultTableModel) tcodigos.getModel());
         tcodigos.setRowSorter(trs);
     }//GEN-LAST:event_jtcodigoCKeyTyped
 
     private void tasientoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tasientoMouseClicked
         // TODO add your handling code here:
-       
+
         int column = tasiento.getColumnModel().getColumnIndexAtX(evt.getX());
-        int row = evt.getY()/tasiento.getRowHeight();
-        
-        if(row < tasiento.getRowCount() && row >= 0 && column < tasiento.getColumnCount() && column >= 0){
+        int row = evt.getY() / tasiento.getRowHeight();
+
+        if (row < tasiento.getRowCount() && row >= 0 && column < tasiento.getColumnCount() && column >= 0) {
             Object value = tasiento.getValueAt(row, column);
-            if(value instanceof JButton){
-                ((JButton)value).doClick();
+            if (value instanceof JButton) {
+                ((JButton) value).doClick();
                 JButton boton = (JButton) value;
 
-                if(boton.getName().equals("m")){
-                    int a= JOptionPane.showConfirmDialog(null, "Desea editar este registro", "Confirmar", JOptionPane.OK_CANCEL_OPTION);
-                    if(a==JOptionPane.OK_OPTION){
-                        
-                    jtModelo1.removeRow(tasiento.getSelectedRow());   
-                    
+                if (boton.getName().equals("m")) {
+                    int a = JOptionPane.showConfirmDialog(null, "Desea editar este registro", "Confirmar", JOptionPane.OK_CANCEL_OPTION);
+                    if (a == JOptionPane.OK_OPTION) {
+
+                        jtModelo1.removeRow(tasiento.getSelectedRow());
+
                     }                    //EVENTOS MODIFICAR
                 }
-                if(boton.getName().equals("e")){
-                      int a= JOptionPane.showConfirmDialog(null, "Desea eliminar este registro", "Confirmar", JOptionPane.OK_CANCEL_OPTION);
-                    if(a==JOptionPane.OK_OPTION){
-                    jtModelo1.removeRow(tasiento.getSelectedRow());   
-                    
+                if (boton.getName().equals("e")) {
+                    int a = JOptionPane.showConfirmDialog(null, "Desea eliminar este registro", "Confirmar", JOptionPane.OK_CANCEL_OPTION);
+                    if (a == JOptionPane.OK_OPTION) {
+                        jtModelo1.removeRow(tasiento.getSelectedRow());
+
                     }
                     //EVENTOS ELIMINAR
                 }
             }
-            if(value instanceof JCheckBox){
+            if (value instanceof JCheckBox) {
                 //((JCheckBox)value).doClick();
-                JCheckBox ch = (JCheckBox)value;
-                if(ch.isSelected()==true){
+                JCheckBox ch = (JCheckBox) value;
+                if (ch.isSelected() == true) {
                     ch.setSelected(false);
                 }
-                if(ch.isSelected()==false){
+                if (ch.isSelected() == false) {
                     ch.setSelected(true);
                 }
-                
+
             }
         }
     }//GEN-LAST:event_tasientoMouseClicked
 
-    private void jthaberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jthaberActionPerformed
+    private void textHaberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textHaberActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jthaberActionPerformed
+    }//GEN-LAST:event_textHaberActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        tasiento.setDefaultRenderer(Object.class, new Render());
+        vcodigo = this.pcodigo.getText();
+            vnombre = this.pnombre.getText();
+            vdebe = this.textdebe.getText();
+            vhaber = this.textHaber.getText();// TODO add your handling code here:
+        
+        if (fechaA.getDate() == null || vcodigo.isEmpty()||vnombre.isEmpty() || (jTcomentario.getText().trim().length() == 0) 
+                || (vdebe.trim().length()==0) || (vhaber.trim().length()==0)) 
+                {
+            JOptionPane.showMessageDialog(null, "Por favor Complete los datos.", "Advertencia", JOptionPane.WARNING_MESSAGE);
 
-        vcodigo=this.pcodigo.getText();
-        vnombre=this.pnombre.getText();
-        vdebe=this.jtdebe.getText();
-        vhaber=this.jthaber.getText();
-        if(cont<1){
+        } else {
+            tasiento.setDefaultRenderer(Object.class, new Render());
+
+            
+            
+            if (cont < 1) {
                 SimpleDateFormat DateFor = new SimpleDateFormat("yyyy-MM-dd");
                 vfecha = DateFor.format(fechaA.getDate());
                 fechaA.setEnabled(false);
-                
+
                 jTcomentario.setEnabled(false);
-        
-        }
-        double vvdebe,vvhaber;
-        vvdebe=Double.valueOf(vdebe);
-        vvhaber=Double.valueOf(vhaber);
-        System.out.println(""+vvdebe+""+vvhaber);
 
+            }
+            double vvdebe, vvhaber;
+            vvdebe = Double.valueOf(vdebe);
+            vvhaber = Double.valueOf(vhaber);
+            //System.out.println("" + vvdebe + "" + vvhaber);
 
+            
+                if (vvdebe < 0 || vvhaber < 0) {
+                    System.out.println("entre a numero nega");
+                    JOptionPane.showMessageDialog(null, "Los valores no deben ser negativos", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    JButton btn2 = new JButton("Eliminar");
+                    btn2.setName("e");
 
-     
-        if(vcodigo.isEmpty()||vnombre.isEmpty()||vfecha.isEmpty()||(jTcomentario.getText().trim().length()==0) ){
-                        JOptionPane.showMessageDialog(null, "Llene todos los datos", "Advertencia", JOptionPane.WARNING_MESSAGE);
-                        jTcomentario.setEnabled(true);
-                        fechaA.setEnabled(true);
+                    jtModelo1.addRow(new Object[]{
+                        vcodigo, vnombre, vdebe, vhaber, vfecha, btn2
+                    });
+                    this.limpiarjtex();
+                    cont++;
 
-        }else{
-          if(vvdebe<0 || vvhaber<0){
-              System.out.println("entre a numero nega");
-           JOptionPane.showMessageDialog(null, "Los valores no deben ser negativos", "Advertencia", JOptionPane.WARNING_MESSAGE);
-          }else{
-            JButton btn2 = new JButton("Eliminar");
-            btn2.setName("e");
-
-            jtModelo1.addRow(new Object[]{
-                vcodigo,vnombre,vdebe,vhaber,vfecha,btn2
-            });
-            this.limpiarjtex();       
-            cont++;
-          
-          }
-
+                }
+                debehaber();
         }
 
-        
-
-
-        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void tcodigosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tcodigosMouseClicked
@@ -528,133 +538,122 @@ public class asientoContable extends javax.swing.JPanel {
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         // TODO add your handling code here:
-        cont=0;
+        cont = 0;
         String comentario = jTcomentario.getText();
 
-            Conector cc = new Conector();
-            Connection cn = cc.conectar();
-            String consult = "insert into asiento(debe,haber,codigo,nombrec,nasiento,fecha,comentario) values(?,?,?,?,?,?,?)";
-            String qry = "SELECT nasiento FROM asiento ORDER BY  nasiento DESC LIMIT 1";
-        double sumH=0,sumD=0;
+        Conector cc = new Conector();
+        Connection cn = cc.conectar();
+        String consult = "insert into asiento(debe,haber,codigo,nombrec,nasiento,fecha,comentario) values(?,?,?,?,?,?,?)";
+        String qry = "SELECT nasiento FROM asiento ORDER BY  nasiento DESC LIMIT 1";
+        double sumH = 0, sumD = 0;
 
         for (int i = 0; i < tasiento.getRowCount(); i++) {
-             sumH=sumH+Double.valueOf((String)tasiento.getValueAt(i, 3));      
-          sumD=sumD+Double.valueOf((String)tasiento.getValueAt(i, 2));   
+            sumH = sumH + Double.valueOf((String) tasiento.getValueAt(i, 3));
+            sumD = sumD + Double.valueOf((String) tasiento.getValueAt(i, 2));
 
         }
-        if(sumH==sumD){
-         try {
-            Statement stmt = cn.createStatement();
-             ResultSet rs  = stmt.executeQuery(qry);
-             int numecoAsiento= rs.getInt("nasiento");             
-             numecoAsiento=numecoAsiento+1;
-        
-            if (tasiento.getRowCount() == 0) {
-               JOptionPane.showMessageDialog(null, "No Existen Datos", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            } else {                
-                for (int i = 0; i < tasiento.getRowCount(); i++) {
-                    vcodigo=(String) tasiento.getValueAt(i, 0);
-                    vnombre=(String) tasiento.getValueAt(i, 1);
-                    vdebe=(String) tasiento.getValueAt(i, 2);
-                    vhaber=(String) tasiento.getValueAt(i, 3);
-                    vfecha=(String) tasiento.getValueAt(i, 4);
-                    //vnumeroAsiento = (String) tasiento.getValueAt(i, 5);
+        if (sumH == sumD) {
+            try {
+                Statement stmt = cn.createStatement();
+                ResultSet rs = stmt.executeQuery(qry);
+                int numecoAsiento = rs.getInt("nasiento");
+                numecoAsiento = numecoAsiento + 1;
 
-                  PreparedStatement ps = cn.prepareStatement(consult);
+                if (tasiento.getRowCount() == 0) {
+                    JOptionPane.showMessageDialog(null, "No Existen Datos", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    for (int i = 0; i < tasiento.getRowCount(); i++) {
+                        vcodigo = (String) tasiento.getValueAt(i, 0);
+                        vnombre = (String) tasiento.getValueAt(i, 1);
+                        vdebe = (String) tasiento.getValueAt(i, 2);
+                        vhaber = (String) tasiento.getValueAt(i, 3);
+                        vfecha = (String) tasiento.getValueAt(i, 4);
+                        //vnumeroAsiento = (String) tasiento.getValueAt(i, 5);
 
-                  if("0".equals(vhaber)){
-                    System.out.println("entro en debe");
-                    ps.setDouble(1, Double.parseDouble(vdebe));
-                    ps.setDouble(2, 0.0);
-                    ps.setInt(3, Integer.parseInt(vcodigo));
-                    ps.setString(4, vnombre);
-                    ps.setInt(5, numecoAsiento);
-                    ps.setString(6,vfecha);
-                    ps.setString(7, jTcomentario.getText());
+                        PreparedStatement ps = cn.prepareStatement(consult);
 
+                        if ("0".equals(vhaber)) {
+                            System.out.println("entro en debe");
+                            ps.setDouble(1, Double.parseDouble(vdebe));
+                            ps.setDouble(2, 0.0);
+                            ps.setInt(3, Integer.parseInt(vcodigo));
+                            ps.setString(4, vnombre);
+                            ps.setInt(5, numecoAsiento);
+                            ps.setString(6, vfecha);
+                            ps.setString(7, jTcomentario.getText());
 
+                        } else if ("0".equals(vdebe)) {
+                            System.out.println("entro en haber");
 
-                  }
-                  else if("0".equals(vdebe)){
-                        System.out.println("entro en haber");
+                            ps.setDouble(1, 0.0);
+                            ps.setDouble(2, Double.parseDouble(vhaber));
+                            ps.setInt(3, Integer.parseInt(vcodigo));
+                            ps.setString(4, vnombre);
+                            ps.setInt(5, numecoAsiento);
+                            ps.setString(6, vfecha);
+                            ps.setString(7, jTcomentario.getText());
 
-                        ps.setDouble(1, 0.0);
-                        ps.setDouble(2, Double.parseDouble(vhaber));
-                        ps.setInt(3, Integer.parseInt(vcodigo));
-                        ps.setString(4, vnombre);
-                        ps.setInt(5, numecoAsiento);
-                        ps.setString(6,vfecha);
-                        ps.setString(7, jTcomentario.getText());
+                        } else {
+                            System.out.println("error no entro");
+                        }
+                        ps.executeUpdate();
 
-                  }
-                  else{
-                      System.out.println("error no entro");
-                  }
-                  ps.executeUpdate();
-
+                    }
+                    JOptionPane.showMessageDialog(null, "Asiento Guardado con exito.", "Con exito", JOptionPane.INFORMATION_MESSAGE);
 
                 }
-            JOptionPane.showMessageDialog(null,"Asiento Guardado con exito.","Con exito",JOptionPane.INFORMATION_MESSAGE);
-  
-             
-           }
 
-        } catch ( Exception e ) {
+            } catch (Exception e) {
 
-          System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-        }
-        
-        fechaA.setEnabled(true);
-        fechaA.setCalendar(null);
-        jTcomentario.setEnabled(true);
+                System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            }
 
-        this.limpiarjtex();
-        this.eliminar();
-        cc.close();
-            
-        }else{
-           JOptionPane.showMessageDialog(null, "La suma en debe y el haber no cuadran.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            fechaA.setEnabled(true);
+            fechaA.setCalendar(null);
+            jTcomentario.setEnabled(true);
+
+            this.limpiarjtex();
+            this.eliminar();
+            cc.close();
+
+        } else {
+            JOptionPane.showMessageDialog(null, "La suma en debe y el haber no cuadran.", "Advertencia", JOptionPane.WARNING_MESSAGE);
 
         }
 
 
-
-
-        
-        
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-                     AsientosConatables  newasiento = null;
-          try {
-              newasiento = new AsientosConatables();
-          } catch (SQLException ex) {
-              Logger.getLogger(asientoContable.class.getName()).log(Level.SEVERE, null, ex);
-          }
-                newasiento.setSize(900, 540);
-                 newasiento.setLocation(0,0);
-                contenedor.removeAll();
-             contenedor.add(newasiento, BorderLayout.CENTER);
-             contenedor.revalidate();
-             contenedor.repaint();
+        AsientosConatables newasiento = null;
+        try {
+            newasiento = new AsientosConatables();
+        } catch (SQLException ex) {
+            Logger.getLogger(asientoContable.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        newasiento.setSize(900, 540);
+        newasiento.setLocation(0, 0);
+        contenedor.removeAll();
+        contenedor.add(newasiento, BorderLayout.CENTER);
+        contenedor.revalidate();
+        contenedor.repaint();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btndebeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btndebeMouseClicked
         // TODO add your handling code here:
-        jtdebe.setEnabled(true);
-        jthaber.setText("0");
-        jthaber.setEnabled(false);
+
 
     }//GEN-LAST:event_btndebeMouseClicked
 
     private void btnhaberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnhaberMouseClicked
-        // TODO add your handling code here:
-        jthaber.setEnabled(true);
-        jtdebe.setText("0");
-        jtdebe.setEnabled(false);
-
+      debehaber();
     }//GEN-LAST:event_btnhaberMouseClicked
+
+    private void btndebeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndebeActionPerformed
+        // TODO add your handling code here:
+       debehaber();
+    }//GEN-LAST:event_btndebeActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -675,11 +674,11 @@ public class asientoContable extends javax.swing.JPanel {
     private javax.swing.JTextField jTcomentario;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JTextField jtcodigoC;
-    private javax.swing.JTextField jtdebe;
-    private javax.swing.JTextField jthaber;
     private javax.swing.JTextField pcodigo;
     private javax.swing.JTextField pnombre;
     private javax.swing.JTable tasiento;
     private javax.swing.JTable tcodigos;
+    private javax.swing.JTextField textHaber;
+    private javax.swing.JTextField textdebe;
     // End of variables declaration//GEN-END:variables
 }
